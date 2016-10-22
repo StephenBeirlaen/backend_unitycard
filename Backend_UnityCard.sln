@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityCard.API", "UnityCard.API\UnityCard.API.csproj", "{F356D060-324A-4570-8E05-36F601E1EE94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityCard.Models", "UnityCard.Models\UnityCard.Models.csproj", "{D5371EDC-993D-431E-8236-DE52900C0A13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityCard.BusinessLayer", "UnityCard.BusinessLayer\UnityCard.BusinessLayer.csproj", "{5D94CAAF-CF87-433F-B62F-E441DB4B0B8C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F356D060-324A-4570-8E05-36F601E1EE94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F356D060-324A-4570-8E05-36F601E1EE94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F356D060-324A-4570-8E05-36F601E1EE94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F356D060-324A-4570-8E05-36F601E1EE94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5371EDC-993D-431E-8236-DE52900C0A13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5371EDC-993D-431E-8236-DE52900C0A13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5371EDC-993D-431E-8236-DE52900C0A13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5371EDC-993D-431E-8236-DE52900C0A13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D94CAAF-CF87-433F-B62F-E441DB4B0B8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D94CAAF-CF87-433F-B62F-E441DB4B0B8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D94CAAF-CF87-433F-B62F-E441DB4B0B8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D94CAAF-CF87-433F-B62F-E441DB4B0B8C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
