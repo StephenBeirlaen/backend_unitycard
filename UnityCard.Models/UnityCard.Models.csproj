@@ -97,7 +97,6 @@
     <Compile Include="Retailer.cs" />
     <Compile Include="RetailerCategory.cs" />
     <Compile Include="RetailerLocation.cs" />
-    <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="PresentationModels\" />

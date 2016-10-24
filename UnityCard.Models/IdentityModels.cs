@@ -1,4 +1,6 @@
-﻿using System.Security.Claims;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -16,9 +18,23 @@ namespace UnityCard.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        [Required]
+        public string FirstName { get; set; }
+
+        [Required]
+        public string LastName { get; set; }
+
+        public string Token { get; set; }
+
+        [Required]
+        public string Language { get; set; }
+
+        [Required]
+        public bool DisableNotifications { get; set; }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    /*public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -29,5 +45,5 @@ namespace UnityCard.Models
         {
             return new ApplicationDbContext();
         }
-    }
+    }*/
 }
