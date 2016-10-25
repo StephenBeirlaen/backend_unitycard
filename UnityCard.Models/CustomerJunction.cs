@@ -13,10 +13,10 @@ namespace UnityCard.Models
         public int Id { get; set; }
 
         public int LoyaltyCardId { get; set; }
-        public LoyaltyCard LoyaltyCard { get; set; }
+        public virtual LoyaltyCard LoyaltyCard { get; set; }
 
         public int RetailerId { get; set; }
-        public Retailer Retailer { get; set; }
+        public virtual Retailer Retailer { get; set; }
 
         public virtual ICollection<LoyaltyPoint> LoyaltyPoints { get; set; }
     }

@@ -242,9 +242,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ApplicationRoles.cs" />
-    <Compile Include="Migrations\201610241846295_UnityCard.cs" />
-    <Compile Include="Migrations\201610241846295_UnityCard.Designer.cs">
-      <DependentUpon>201610241846295_UnityCard.cs</DependentUpon>
+    <Compile Include="Migrations\201610252004591_UnityCard.cs" />
+    <Compile Include="Migrations\201610252004591_UnityCard.Designer.cs">
+      <DependentUpon>201610252004591_UnityCard.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -347,8 +347,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201610241846295_UnityCard.resx">
-      <DependentUpon>201610241846295_UnityCard.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201610252004591_UnityCard.resx">
+      <DependentUpon>201610252004591_UnityCard.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

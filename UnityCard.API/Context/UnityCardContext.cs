@@ -52,10 +52,10 @@ namespace UnityCard.API.Context
                 .HasRequired(lc => lc.User)
                 .WithRequiredDependent(au => au.LoyaltyCard);*/ // werkte zonder errors
             
-            
+            // normaal niet meer nodig (conventies doen dit al)
 
 
-            modelBuilder.Entity<CustomerJunction>()
+            /*modelBuilder.Entity<CustomerJunction>()
                 .HasRequired<LoyaltyCard>(cj => cj.LoyaltyCard)
                 .WithMany(lc => lc.CustomerJunctions)
                 .HasForeignKey(cj => cj.LoyaltyCardId);
@@ -83,7 +83,7 @@ namespace UnityCard.API.Context
             modelBuilder.Entity<RetailerLocation>()
                 .HasRequired<Retailer>(rl => rl.Retailer)
                 .WithMany(r => r.RetailerLocations)
-                .HasForeignKey(rl => rl.RetailerId);
+                .HasForeignKey(rl => rl.RetailerId);*/
         }
     }
 }

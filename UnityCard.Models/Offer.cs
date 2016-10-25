@@ -13,7 +13,7 @@ namespace UnityCard.Models
         public int Id { get; set; }
 
         public int RetailerId { get; set; }
-        public Retailer Retailer { get; set; }
+        public virtual Retailer Retailer { get; set; }
 
         [Required]
         public string OfferDemand { get; set; }

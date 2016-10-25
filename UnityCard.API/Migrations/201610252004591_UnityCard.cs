@@ -182,10 +182,10 @@ namespace UnityCard.API.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.CustomerJunctions", "RetailerId", "dbo.Retailers");
             DropForeignKey("dbo.RetailerLocations", "RetailerId", "dbo.Retailers");
             DropForeignKey("dbo.Retailers", "RetailerCategoryId", "dbo.RetailerCategories");
             DropForeignKey("dbo.Offers", "RetailerId", "dbo.Retailers");
+            DropForeignKey("dbo.CustomerJunctions", "RetailerId", "dbo.Retailers");
             DropForeignKey("dbo.LoyaltyPoints", "CustomerJunctionId", "dbo.CustomerJunctions");
             DropForeignKey("dbo.CustomerJunctions", "LoyaltyCardId", "dbo.LoyaltyCards");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });

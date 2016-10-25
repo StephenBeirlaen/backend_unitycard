@@ -19,6 +19,6 @@ namespace UnityCard.Models
         public DateTime Timestamp { get; set; }
 
         public int CustomerJunctionId { get; set; }
-        public CustomerJunction CustomerJunction { get; set; }
+        public virtual CustomerJunction CustomerJunction { get; set; }
     }
 }
