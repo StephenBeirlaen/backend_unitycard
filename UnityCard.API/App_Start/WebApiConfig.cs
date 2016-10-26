@@ -25,6 +25,9 @@ namespace UnityCard.API
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            // Enable Cross-origin resource sharing
+            config.EnableCors();
         }
     }
 }
