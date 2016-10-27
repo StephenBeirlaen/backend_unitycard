@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using UnityCard.API.Helpers;
+using UnityCard.BusinessLayer.Repositories.Interfaces;
 using UnityCard.Models;
 
 namespace UnityCard.API.Controllers
@@ -12,9 +13,21 @@ namespace UnityCard.API.Controllers
     [RoutePrefix("api/retailers")]
     public class RetailerController : ApiController
     {
-        public RetailerController()
+        private ILoyaltyCardRepository repoLoyaltyCards; // todo: remove unused
+        private ILoyaltyPointRepository repoLoyaltyPoints;
+        private IOfferRepository repoOffers;
+        private IRetailerCategoryRepository repoRetailerCategories;
+        private IRetailerLocationRepository repoRetailerLocations;
+        private IRetailerRepository repoRetailers;
+
+        public RetailerController(ILoyaltyCardRepository repoLoyaltyCards, ILoyaltyPointRepository repoLoyaltyPoints, IOfferRepository repoOffers, IRetailerCategoryRepository repoRetailerCategories, IRetailerLocationRepository repoRetailerLocations, IRetailerRepository repoRetailers)
         {
-            
+            this.repoLoyaltyCards = repoLoyaltyCards;
+            this.repoLoyaltyPoints = repoLoyaltyPoints;
+            this.repoOffers = repoOffers;
+            this.repoRetailerCategories = repoRetailerCategories;
+            this.repoRetailerLocations = repoRetailerLocations;
+            this.repoRetailers = repoRetailers;
         }
 
         /// <summary>

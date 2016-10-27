@@ -21,7 +21,7 @@ namespace UnityCard.API.Providers
 
         public ApplicationRefreshTokenProvider()
         {
-            _tokenExpiration = 10; // 10 days
+            _tokenExpiration = 3; // todo: 3 days is voorlopig, later veranderen
         }
 
         public override void Create(AuthenticationTokenCreateContext context)

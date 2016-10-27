@@ -40,7 +40,7 @@ namespace UnityCard.API
                 TokenEndpointPath = new PathString("/Token"),
                 Provider = new ApplicationOAuthProvider(PublicClientId),
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
-                AccessTokenExpireTimeSpan = /*TimeSpan.FromDays(14)*/TimeSpan.FromMinutes(2),
+                AccessTokenExpireTimeSpan = /*TimeSpan.FromDays(14)*/TimeSpan.FromHours(12),
                 // In production mode set AllowInsecureHttp = false
                 AllowInsecureHttp = true,
                 // Refresh token provider which creates and receives refresh tokens

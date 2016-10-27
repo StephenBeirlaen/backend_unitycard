@@ -1,6 +1,8 @@
 using Microsoft.Practices.Unity;
 using System.Web.Http;
 using Unity.WebApi;
+using UnityCard.BusinessLayer.Repositories;
+using UnityCard.BusinessLayer.Repositories.Interfaces;
 
 namespace UnityCard.API
 {
@@ -15,9 +17,12 @@ namespace UnityCard.API
 
             // e.g. container.RegisterType<ITestService, TestService>();
 
-            /*container.RegisterType<IThingNotificationRepository, ThingNotificationRepository>();
-            container.RegisterType<IBaseStationRepository, BaseStationRepository>();
-            container.RegisterType<IThingLocationRepository, ThingLocationRepository>();*/
+            container.RegisterType<ILoyaltyCardRepository, LoyaltyCardRepository>();
+            container.RegisterType<ILoyaltyPointRepository, LoyaltyPointRepository>();
+            container.RegisterType<IOfferRepository, OfferRepository>();
+            container.RegisterType<IRetailerCategoryRepository, RetailerCategoryRepository>();
+            container.RegisterType<IRetailerLocationRepository, RetailerLocationRepository>();
+            container.RegisterType<IRetailerRepository, RetailerRepository>();
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
