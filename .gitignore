@@ -250,5 +250,3 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
-UnityCard.API/connectionstrings.config
-UnityCard.API/Web.Debug.config
