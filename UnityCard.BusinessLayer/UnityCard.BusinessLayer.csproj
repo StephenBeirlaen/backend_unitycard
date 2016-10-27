@@ -59,12 +59,12 @@
   <ItemGroup>
     <Compile Include="Context\UnityCardDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\ILoyaltyPointRepository.cs" />
-    <Compile Include="Repositories\IOfferRepository.cs" />
-    <Compile Include="Repositories\IRetailerLocationRepository.cs" />
-    <Compile Include="Repositories\IRetailerCategoryRepository.cs" />
-    <Compile Include="Repositories\IRetailerRepository.cs" />
-    <Compile Include="Repositories\ILoyaltyCardRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ILoyaltyPointRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IOfferRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IRetailerLocationRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IRetailerCategoryRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IRetailerRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ILoyaltyCardRepository.cs" />
     <Compile Include="Repositories\LoyaltyPointRepository.cs" />
     <Compile Include="Repositories\RetailerLocationRepository.cs" />
     <Compile Include="Repositories\OfferRepository.cs" />
@@ -72,7 +72,7 @@
     <Compile Include="Repositories\RetailerRepository.cs" />
     <Compile Include="Repositories\LoyaltyCardRepository.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
-    <Compile Include="Repositories\IGenericRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IGenericRepository.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

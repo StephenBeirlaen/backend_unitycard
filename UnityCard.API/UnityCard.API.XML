@@ -481,25 +481,25 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
-        <member name="M:UnityCard.API.Controllers.AdvertisementController.GetAllRetailerOffers(System.String)">
+        <member name="M:UnityCard.API.Controllers.OfferController.GetAllRetailerOffers(System.String)">
             <summary>
             Retrieves all relevant offers according to a users loyalty card
             </summary>
             <returns></returns>
         </member>
-        <member name="M:UnityCard.API.Controllers.AdvertisementController.GetRetailerOffers(System.Int32,System.String)">
+        <member name="M:UnityCard.API.Controllers.OfferController.GetRetailerOffers(System.Int32,System.String)">
             <summary>
             Retrieves all relevant offers of a specific retailer according to the user's loyalty card
             </summary>
             <returns></returns>
         </member>
-        <member name="M:UnityCard.API.Controllers.AdvertisementController.AddRetailerOffer(System.Int32,System.String,System.String)">
+        <member name="M:UnityCard.API.Controllers.OfferController.AddRetailerOffer(System.Int32,System.String,System.String)">
             <summary>
             Add an offer for a specific retailer
             </summary>
             <returns></returns>
         </member>
-        <member name="M:UnityCard.API.Controllers.AdvertisementController.PushAdvertisementNotification(System.Int32,System.String,System.String)">
+        <member name="M:UnityCard.API.Controllers.OfferController.PushAdvertisementNotification(System.Int32,System.String,System.String)">
             <summary>
             Push a new ad notification to all clients of a retailer
             </summary>
@@ -538,6 +538,12 @@
         <member name="M:UnityCard.API.Controllers.RetailerController.AddRetailerLocation(System.Int32,System.String,System.Double,System.Double,System.String,System.String,System.Int32,System.String,System.String)">
             <summary>
             Add a location of a retailer (chain)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UnityCard.API.Controllers.RetailerController.GetAllRetailerCategories">
+            <summary>
+            Retrieves all retailer categories
             </summary>
             <returns></returns>
         </member>
