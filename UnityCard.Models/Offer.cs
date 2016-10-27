@@ -12,6 +12,7 @@ namespace UnityCard.Models
     {
         public int Id { get; set; }
 
+        [Required]
         public int RetailerId { get; set; }
         public virtual Retailer Retailer { get; set; }
 
@@ -23,5 +24,17 @@ namespace UnityCard.Models
 
         [Required]
         public DateTime CreatedTimestamp { get; set; }
+
+        public Offer()
+        {
+        }
+
+        public Offer(int retailerId, string offerDemand, string offerReceive)
+        {
+            RetailerId = retailerId;
+            OfferDemand = offerDemand;
+            OfferReceive = offerReceive;
+            CreatedTimestamp = DateTime.Now;
+        }
     }
 }

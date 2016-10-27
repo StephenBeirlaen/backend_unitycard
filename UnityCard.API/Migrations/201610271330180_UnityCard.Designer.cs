@@ -13,7 +13,7 @@ namespace UnityCard.API.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201610252004591_UnityCard"; }
+            get { return "201610271330180_UnityCard"; }
         }
         
         string IMigrationMetadata.Source

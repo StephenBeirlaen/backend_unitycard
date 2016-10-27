@@ -88,10 +88,9 @@
     <Compile Include="AccountBindingModels.cs" />
     <Compile Include="AccountViewModels.cs" />
     <Compile Include="AdvertisementNotification.cs" />
-    <Compile Include="CustomerJunction.cs" />
+    <Compile Include="LoyaltyPoint.cs" />
     <Compile Include="IdentityModels.cs" />
     <Compile Include="LoyaltyCard.cs" />
-    <Compile Include="LoyaltyPoint.cs" />
     <Compile Include="Offer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Retailer.cs" />

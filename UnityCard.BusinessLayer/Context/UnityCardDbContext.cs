@@ -7,25 +7,23 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.EntityFramework;
 using UnityCard.Models;
 
-namespace UnityCard.API.Context
+namespace UnityCard.BusinessLayer.Context
 {
-    public class UnityCardContext : IdentityDbContext<ApplicationUser>
+    public class UnityCardDbContext : IdentityDbContext<ApplicationUser>
     {
-        public UnityCardContext()
+        public UnityCardDbContext()
             : base("UnityCardConnection", throwIfV1Schema: false)
         {
         }
 
-        public static UnityCardContext Create()
+        public static UnityCardDbContext Create()
         {
-            return new UnityCardContext();
+            return new UnityCardDbContext();
         }
 
         public DbSet<LoyaltyCard> LoyaltyCards { get; set; }
 
         public DbSet<LoyaltyPoint> LoyaltyPoints { get; set; }
-
-        public DbSet<CustomerJunction> CustomerJunctions { get; set; }
 
         public DbSet<Retailer> Retailers { get; set; }
 

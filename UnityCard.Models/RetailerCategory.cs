@@ -15,5 +15,14 @@ namespace UnityCard.Models
         public string Name { get; set; }
 
         public virtual ICollection<Retailer> Retailers { get; set; }
+
+        public RetailerCategory()
+        {
+        }
+
+        public RetailerCategory(string name)
+        {
+            Name = name;
+        }
     }
 }

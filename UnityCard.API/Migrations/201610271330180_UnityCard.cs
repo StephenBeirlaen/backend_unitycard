@@ -8,25 +8,11 @@ namespace UnityCard.API.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.CustomerJunctions",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        LoyaltyCardId = c.Int(nullable: false),
-                        RetailerId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.LoyaltyCards", t => t.LoyaltyCardId, cascadeDelete: true)
-                .ForeignKey("dbo.Retailers", t => t.RetailerId, cascadeDelete: true)
-                .Index(t => t.LoyaltyCardId)
-                .Index(t => t.RetailerId);
-            
-            CreateTable(
                 "dbo.LoyaltyCards",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        UserId = c.String(),
+                        UserId = c.String(nullable: false),
                         CreatedTimestamp = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
@@ -36,13 +22,15 @@ namespace UnityCard.API.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Value = c.Int(nullable: false),
-                        Timestamp = c.DateTime(nullable: false),
-                        CustomerJunctionId = c.Int(nullable: false),
+                        LoyaltyCardId = c.Int(nullable: false),
+                        RetailerId = c.Int(nullable: false),
+                        Points = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.CustomerJunctions", t => t.CustomerJunctionId, cascadeDelete: true)
-                .Index(t => t.CustomerJunctionId);
+                .ForeignKey("dbo.LoyaltyCards", t => t.LoyaltyCardId, cascadeDelete: true)
+                .ForeignKey("dbo.Retailers", t => t.RetailerId, cascadeDelete: true)
+                .Index(t => t.LoyaltyCardId)
+                .Index(t => t.RetailerId);
             
             CreateTable(
                 "dbo.Retailers",
@@ -131,7 +119,6 @@ namespace UnityCard.API.Migrations
                         Id = c.String(nullable: false, maxLength: 128),
                         FirstName = c.String(nullable: false),
                         LastName = c.String(nullable: false),
-                        Token = c.String(),
                         Language = c.String(nullable: false),
                         DisableNotifications = c.Boolean(nullable: false),
                         Email = c.String(maxLength: 256),
@@ -185,9 +172,8 @@ namespace UnityCard.API.Migrations
             DropForeignKey("dbo.RetailerLocations", "RetailerId", "dbo.Retailers");
             DropForeignKey("dbo.Retailers", "RetailerCategoryId", "dbo.RetailerCategories");
             DropForeignKey("dbo.Offers", "RetailerId", "dbo.Retailers");
-            DropForeignKey("dbo.CustomerJunctions", "RetailerId", "dbo.Retailers");
-            DropForeignKey("dbo.LoyaltyPoints", "CustomerJunctionId", "dbo.CustomerJunctions");
-            DropForeignKey("dbo.CustomerJunctions", "LoyaltyCardId", "dbo.LoyaltyCards");
+            DropForeignKey("dbo.LoyaltyPoints", "RetailerId", "dbo.Retailers");
+            DropForeignKey("dbo.LoyaltyPoints", "LoyaltyCardId", "dbo.LoyaltyCards");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
@@ -197,9 +183,8 @@ namespace UnityCard.API.Migrations
             DropIndex("dbo.RetailerLocations", new[] { "RetailerId" });
             DropIndex("dbo.Offers", new[] { "RetailerId" });
             DropIndex("dbo.Retailers", new[] { "RetailerCategoryId" });
-            DropIndex("dbo.LoyaltyPoints", new[] { "CustomerJunctionId" });
-            DropIndex("dbo.CustomerJunctions", new[] { "RetailerId" });
-            DropIndex("dbo.CustomerJunctions", new[] { "LoyaltyCardId" });
+            DropIndex("dbo.LoyaltyPoints", new[] { "RetailerId" });
+            DropIndex("dbo.LoyaltyPoints", new[] { "LoyaltyCardId" });
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
@@ -211,7 +196,6 @@ namespace UnityCard.API.Migrations
             DropTable("dbo.Retailers");
             DropTable("dbo.LoyaltyPoints");
             DropTable("dbo.LoyaltyCards");
-            DropTable("dbo.CustomerJunctions");
         }
     }
 }

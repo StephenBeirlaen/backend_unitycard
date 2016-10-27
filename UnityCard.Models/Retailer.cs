@@ -12,6 +12,7 @@ namespace UnityCard.Models
     {
         public int Id { get; set; }
 
+        [Required]
         public int RetailerCategoryId { get; set; }
         public virtual RetailerCategory RetailerCategory { get; set; }
 
@@ -25,10 +26,23 @@ namespace UnityCard.Models
 
         public string LogoUrl { get; set; }
 
-        public virtual ICollection<CustomerJunction> CustomerJunctions { get; set; }
+        public virtual ICollection<LoyaltyPoint> LoyaltyPoints { get; set; }
 
         public virtual ICollection<RetailerLocation> RetailerLocations { get; set; }
 
         public virtual ICollection<Offer> Offers { get; set; }
+
+        public Retailer()
+        {
+        }
+
+        public Retailer(int retailerCategoryId, string name, string tagline, bool chain, string logoUrl)
+        {
+            RetailerCategoryId = retailerCategoryId;
+            Name = name;
+            Tagline = tagline;
+            Chain = chain;
+            LogoUrl = logoUrl;
+        }
     }
 }

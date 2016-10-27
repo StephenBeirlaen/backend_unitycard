@@ -12,11 +12,22 @@ namespace UnityCard.Models
     {
         public int Id { get; set; }
 
+        [Required]
         public string UserId { get; set; }
 
         [Required]
         public DateTime CreatedTimestamp { get; set; }
 
-        public virtual ICollection<CustomerJunction> CustomerJunctions { get; set; }
+        public virtual ICollection<LoyaltyPoint> LoyaltyPoints { get; set; }
+
+        public LoyaltyCard()
+        {
+        }
+
+        public LoyaltyCard(string userId)
+        {
+            UserId = userId;
+            CreatedTimestamp = DateTime.Now;
+        }
     }
 }

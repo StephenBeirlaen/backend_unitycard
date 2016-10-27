@@ -12,6 +12,7 @@ namespace UnityCard.Models
     {
         public int Id { get; set; }
 
+        [Required]
         public int RetailerId { get; set; }
         public virtual Retailer Retailer { get; set; }
 
@@ -38,5 +39,22 @@ namespace UnityCard.Models
 
         [Required]
         public string Country { get; set; }
+
+        public RetailerLocation()
+        {
+        }
+
+        public RetailerLocation(int retailerId, string name, double latitude, double longitude, string street, string number, int zipCode, string city, string country)
+        {
+            RetailerId = retailerId;
+            Name = name;
+            Latitude = latitude;
+            Longitude = longitude;
+            Street = street;
+            Number = number;
+            ZipCode = zipCode;
+            City = city;
+            Country = country;
+        }
     }
 }

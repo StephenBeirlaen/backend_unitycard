@@ -13,12 +13,25 @@ namespace UnityCard.Models
         public int Id { get; set; }
 
         [Required]
-        public int Value { get; set; }
+        public int LoyaltyCardId { get; set; }
+        public virtual LoyaltyCard LoyaltyCard { get; set; }
 
         [Required]
-        public DateTime Timestamp { get; set; }
+        public int RetailerId { get; set; }
+        public virtual Retailer Retailer { get; set; }
 
-        public int CustomerJunctionId { get; set; }
-        public virtual CustomerJunction CustomerJunction { get; set; }
+        [Required]
+        public int Points { get; set; }
+
+        public LoyaltyPoint()
+        {
+        }
+
+        public LoyaltyPoint(int loyaltyCardId, int retailerId, int points)
+        {
+            LoyaltyCardId = loyaltyCardId;
+            RetailerId = retailerId;
+            Points = points;
+        }
     }
 }

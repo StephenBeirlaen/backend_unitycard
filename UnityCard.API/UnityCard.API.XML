@@ -481,9 +481,99 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
-        <member name="M:UnityCard.API.Controllers.ValuesController.Get">
+        <member name="M:UnityCard.API.Controllers.AdvertisementController.GetAllRetailerOffers(System.String)">
             <summary>
-            Returns all thing locations
+            Retrieves all relevant offers according to a users loyalty card
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UnityCard.API.Controllers.AdvertisementController.GetRetailerOffers(System.Int32,System.String)">
+            <summary>
+            Retrieves all relevant offers of a specific retailer according to the user's loyalty card
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UnityCard.API.Controllers.AdvertisementController.AddRetailerOffer(System.Int32,System.String,System.String)">
+            <summary>
+            Add an offer for a specific retailer
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UnityCard.API.Controllers.AdvertisementController.PushAdvertisementNotification(System.Int32,System.String,System.String)">
+            <summary>
+            Push a new ad notification to all clients of a retailer
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UnityCard.API.Controllers.RetailerController.GetAllRetailers">
+            <summary>
+            Retrieves all retailers
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UnityCard.API.Controllers.RetailerController.AddRetailer(System.String,System.String,System.String,System.Int32,System.Boolean)">
+            <summary>
+            Add a retailer
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UnityCard.API.Controllers.RetailerController.GetRetailer(System.Int32)">
+            <summary>
+            Retrieves a specific retailer and its details: aantal punten verzameld, enkele winkel of keten, indien keten hoeveel winkels en locatie dichtstbijzijnde winkel, indien geen keten locatie winkel
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UnityCard.API.Controllers.RetailerController.GetRetailerLocations(System.Int32)">
+            <summary>
+            Retrieves all locations of a retailer
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UnityCard.API.Controllers.RetailerController.GetRetailerLocation(System.Int32,System.Int32)">
+            <summary>
+            Retrieves details of a specific location of a retailer (chain)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UnityCard.API.Controllers.RetailerController.AddRetailerLocation(System.Int32,System.String,System.Double,System.Double,System.String,System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Add a location of a retailer (chain)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UnityCard.API.Controllers.LoyaltyPointController.GetTotalLoyaltyPoints(System.String)">
+            <summary>
+            Get total amount of loyalty points collected
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UnityCard.API.Controllers.LoyaltyPointController.AwardLoyaltyPoints(System.String,System.Int32,System.Int32)">
+            <summary>
+            Award an amount of loyalty points to the specified user
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UnityCard.API.Controllers.LoyaltyPointController.ModifyLoyaltyPoints(System.String,System.Int32,System.Int32)">
+            <summary>
+            Change the specified users's loyalty points
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UnityCard.API.Controllers.LoyaltyCardController.GetLoyaltyCard(System.String)">
+            <summary>
+            Retrieves the specified user's loyalty card
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UnityCard.API.Controllers.LoyaltyCardController.GetLoyaltyCardRetailers(System.String)">
+            <summary>
+            Retrieves all retailers attached to the specified user's loyalty card
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UnityCard.API.Controllers.LoyaltyCardController.AddLoyaltyCardRetailer(System.String,System.Int32)">
+            <summary>
+            Add a new retailer to the specified user's loyalty card
             </summary>
             <returns></returns>
         </member>
