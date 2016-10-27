@@ -324,7 +324,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="connectionstrings.config" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="UnityCard.API.XML" />
     <Content Include="Web.config" />
