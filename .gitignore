@@ -252,3 +252,4 @@ paket-files/
 *.sln.iml
 
 UnityCard.API/connectionstrings.config
+UnityCard.API/Web.config
