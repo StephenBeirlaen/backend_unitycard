@@ -39,9 +39,9 @@ namespace UnityCard.API.Controllers
         [Authorize(Roles = ApplicationRoles.CUSTOMER)]
         public List<Offer> GetAllRetailerOffers(string userId)
         {
-            // GetAllRetailerOffers
+            List<Offer> lijstOffers = repoOffers.GetAllRetailerOffers(userId);
 
-            return null; // todo
+            return lijstOffers;
         }
 
         /// <summary>
@@ -53,9 +53,9 @@ namespace UnityCard.API.Controllers
         [Authorize(Roles = ApplicationRoles.CUSTOMER)]
         public List<Offer> GetRetailerOffers(int retailerId, string userId)
         {
-            // GetRetailerOffers
+            List<Offer> lijstOffersByRetailer = repoOffers.GetRetailerOffers(retailerId, userId);
 
-            return null; // todo
+            return lijstOffersByRetailer;
         }
 
         /// <summary>
@@ -70,9 +70,9 @@ namespace UnityCard.API.Controllers
             [FromBody]string offerDemand,
             [FromBody]string offerReceive)
         {
-            // OfferRepository.Insert (uit generic repo klasse)
+            Offer offer = new Offer(retailerId, offerDemand, offerReceive);
 
-            // todo
+            repoOffers.Insert(offer);
         }
 
         /// <summary>

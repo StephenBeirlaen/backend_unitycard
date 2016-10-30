@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using UnityCard.API.Helpers;
 using UnityCard.BusinessLayer.Repositories.Interfaces;
+using UnityCard.Models;
 
 namespace UnityCard.API.Controllers
 {
@@ -38,9 +39,9 @@ namespace UnityCard.API.Controllers
         [Authorize(Roles = ApplicationRoles.CUSTOMER)]
         public int GetTotalLoyaltyPoints(string userId)
         {
-            // GetTotalLoyaltyPoints
+            int totalLoyaltyPoints = repoLoyaltyPoints.GetTotalLoyaltyPoints(userId);
 
-            return 0; // todo
+            return totalLoyaltyPoints;
         }
 
         /// <summary>
@@ -52,9 +53,7 @@ namespace UnityCard.API.Controllers
         [Authorize(Roles = ApplicationRoles.RETAILER)]
         public void AwardLoyaltyPoints(string userId, int retailerId, [FromBody]int loyaltyPointsIncrementAmount)
         {
-            // AwardLoyaltyPoints
-
-            // todo
+            repoLoyaltyPoints.AwardLoyaltyPoints(userId, retailerId, loyaltyPointsIncrementAmount);
         }
 
         /// <summary>
@@ -66,9 +65,8 @@ namespace UnityCard.API.Controllers
         [Authorize(Roles = ApplicationRoles.RETAILER)]
         public void ModifyLoyaltyPoints(string userId, int retailerId, [FromBody]int loyaltyPointsCount)
         {
-            // ModifyLoyaltyPoints
 
-            // todo
+            repoLoyaltyPoints.ModifyLoyaltyPoints(userId, retailerId, loyaltyPointsCount);
         }
     }
 }
