@@ -40,9 +40,9 @@ namespace UnityCard.API.Controllers
         [Authorize(Roles = ApplicationRoles.CUSTOMER)]
         public LoyaltyCard GetLoyaltyCard(string userId)
         {
-            // GetLoyaltyCard
+            LoyaltyCard loyaltycard = repoLoyaltyCards.GetLoyaltyCard(userId);
 
-            return null; // todo
+            return loyaltycard;
         }
 
         /// <summary>
@@ -54,9 +54,10 @@ namespace UnityCard.API.Controllers
         [Authorize(Roles = ApplicationRoles.CUSTOMER)]
         public List<Retailer> GetLoyaltyCardRetailers(string userId)
         {
-            // GetLoyaltyCardRetailers
 
-            return null; // todo
+            List<Retailer> lijstRetailer = repoLoyaltyCards.GetLoyaltyCardRetailers(userId);
+
+            return lijstRetailer;
         }
 
         /// <summary>
@@ -68,9 +69,12 @@ namespace UnityCard.API.Controllers
         [Authorize(Roles = ApplicationRoles.CUSTOMER)]
         public void AddLoyaltyCardRetailer(string userId, [FromBody]int retailerId)
         {
-            // AddLoyaltyCardRetailer gebruik makend van GetLoyaltyCard
 
-            // todo
+            LoyaltyCard loyaltyCard = repoLoyaltyCards.GetLoyaltyCard(userId);
+
+            Retailer retailer = repoRetailers.GetByID(retailerId);
+
+            repoLoyaltyCards.AddLoyaltyCardRetailer(loyaltyCard, retailer);
         }
     }
 }

@@ -39,10 +39,12 @@ namespace UnityCard.API.Controllers
         [Authorize(Roles = ApplicationRoles.CUSTOMER)]
         public IEnumerable<string> GetAllRetailers()
         {
-            // RetailerRepository.GetAll (uit generic repo klasse)
+
+            IEnumerable<string> lijst = (IEnumerable<string>)repoRetailers.GetAll();
+
             // todo: test include sub objecten van retailers?
 
-            return null; // todo
+            return lijst;
         }
 
         /// <summary>
@@ -59,9 +61,10 @@ namespace UnityCard.API.Controllers
             [FromBody]int retailerCategoryId,
             [FromBody]bool isChain)
         {
-            // RetailerRepository.Insert (uit generic repo klasse)
 
-            // todo
+            Retailer retailer = new Retailer(retailerCategoryId, retailerName, retailerTagline, isChain, retailerLogoUrl);
+
+            repoRetailers.Insert(retailer);
         }
 
         /// <summary>
@@ -73,10 +76,11 @@ namespace UnityCard.API.Controllers
         [Authorize(Roles = ApplicationRoles.CUSTOMER)]
         public Retailer GetRetailer(int retailerId)
         {
-            // RetailerRepository.GetByID (uit generic repo klasse)
             // todo: test include sub objecten van retailer?
 
-            return null; // todo
+            Retailer retailer = repoRetailers.GetByID(retailerId);
+
+            return retailer;
         }
 
         /// <summary>
@@ -88,9 +92,9 @@ namespace UnityCard.API.Controllers
         [Authorize(Roles = ApplicationRoles.CUSTOMER)]
         public List<RetailerLocation> GetRetailerLocations(int retailerId)
         {
-            // GetRetailerLocations
+            List<RetailerLocation> lijstRetailerLocations = repoRetailerLocations.GetRetailerLocations(retailerId);
 
-            return null; // todo
+            return lijstRetailerLocations;
         }
 
         /// <summary>
@@ -102,9 +106,9 @@ namespace UnityCard.API.Controllers
         [Authorize(Roles = ApplicationRoles.CUSTOMER)]
         public RetailerLocation GetRetailerLocation(int retailerId, int locationId)
         {
-            // GetRetailerLocation (enkel locationId nodig)
+            RetailerLocation retailerLocation = repoRetailerLocations.GetRetailerLocation(locationId);
 
-            return null; // todo
+            return retailerLocation;
         }
 
         /// <summary>
@@ -125,9 +129,11 @@ namespace UnityCard.API.Controllers
             [FromBody]string city,
             [FromBody]string country)
         {
-            // RetailerLocationRepository.Insert (uit generic repo klasse)
 
-            // todo
+            RetailerLocation retailerLocation = new RetailerLocation(retailerId, name, latitude, longitude, street, number, zipCode, city, country);
+
+            repoRetailerLocations.Insert(retailerLocation);
+
         }
 
         /// <summary>
@@ -138,9 +144,9 @@ namespace UnityCard.API.Controllers
         [Route("categories")]
         public IEnumerable<string> GetAllRetailerCategories()
         {
-            // RetailerCategoryRepository.GetAll (uit generic repo klasse)
+            IEnumerable<string> lijst = (IEnumerable<string>)repoRetailerCategories.GetAll();
 
-            return null; // todo
+            return lijst;
         }
     }
 }
