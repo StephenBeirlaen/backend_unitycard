@@ -3,28 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using UnityCard.API.Helpers;
 using UnityCard.BusinessLayer.Repositories.Interfaces;
 using UnityCard.Models;
+using UnityCard.Models.PostModels;
 
 namespace UnityCard.API.Controllers
 {
     [RoutePrefix("api/retailers")]
     public class RetailerController : ApiController
     {
-        private ILoyaltyCardRepository repoLoyaltyCards; // todo: remove unused
-        private ILoyaltyPointRepository repoLoyaltyPoints;
-        private IOfferRepository repoOffers;
         private IRetailerCategoryRepository repoRetailerCategories;
         private IRetailerLocationRepository repoRetailerLocations;
         private IRetailerRepository repoRetailers;
 
-        public RetailerController(ILoyaltyCardRepository repoLoyaltyCards, ILoyaltyPointRepository repoLoyaltyPoints, IOfferRepository repoOffers, IRetailerCategoryRepository repoRetailerCategories, IRetailerLocationRepository repoRetailerLocations, IRetailerRepository repoRetailers)
+        public RetailerController(IRetailerCategoryRepository repoRetailerCategories, IRetailerLocationRepository repoRetailerLocations, IRetailerRepository repoRetailers)
         {
-            this.repoLoyaltyCards = repoLoyaltyCards;
-            this.repoLoyaltyPoints = repoLoyaltyPoints;
-            this.repoOffers = repoOffers;
             this.repoRetailerCategories = repoRetailerCategories;
             this.repoRetailerLocations = repoRetailerLocations;
             this.repoRetailers = repoRetailers;
@@ -37,14 +33,11 @@ namespace UnityCard.API.Controllers
         [HttpGet]
         [Route("")]
         [Authorize(Roles = ApplicationRoles.CUSTOMER)]
-        public IEnumerable<string> GetAllRetailers()
+        public async Task<List<Retailer>> GetAllRetailers()
         {
+            List<Retailer> retailers = (await repoRetailers.GetAll()).ToList();
 
-            IEnumerable<string> lijst = (IEnumerable<string>)repoRetailers.GetAll();
-
-            // todo: test include sub objecten van retailers?
-
-            return lijst;
+            return retailers;
         }
 
         /// <summary>
@@ -54,17 +47,34 @@ namespace UnityCard.API.Controllers
         [HttpPost]
         [Route("")]
         [Authorize(Roles = ApplicationRoles.RETAILER)]
-        public void AddRetailer(
-            [FromBody]string retailerName,
-            [FromBody]string retailerTagline,
-            [FromBody]string retailerLogoUrl,
-            [FromBody]int retailerCategoryId,
-            [FromBody]bool isChain)
+        public async Task<HttpResponseMessage> AddRetailer(AddRetailerBody body)
         {
+            if (body == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
 
-            Retailer retailer = new Retailer(retailerCategoryId, retailerName, retailerTagline, isChain, retailerLogoUrl);
+            Retailer retailer = new Retailer(
+                body.RetailerCategoryId,
+                body.RetailerName,
+                body.RetailerTagline,
+                body.IsChain,
+                body.RetailerLogoUrl);
 
             repoRetailers.Insert(retailer);
+
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+
+            try
+            {
+                await repoRetailers.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                response = Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+
+            return response;
         }
 
         /// <summary>
@@ -74,11 +84,9 @@ namespace UnityCard.API.Controllers
         [HttpGet]
         [Route("{retailerId}")]
         [Authorize(Roles = ApplicationRoles.CUSTOMER)]
-        public Retailer GetRetailer(int retailerId)
+        public async Task<Retailer> GetRetailer(int retailerId)
         {
-            // todo: test include sub objecten van retailer?
-
-            Retailer retailer = repoRetailers.GetByID(retailerId);
+            Retailer retailer = await repoRetailers.GetByID(retailerId);
 
             return retailer;
         }
@@ -90,11 +98,11 @@ namespace UnityCard.API.Controllers
         [HttpGet]
         [Route("{retailerId}/locations")]
         [Authorize(Roles = ApplicationRoles.CUSTOMER)]
-        public List<RetailerLocation> GetRetailerLocations(int retailerId)
+        public async Task<List<RetailerLocation>> GetRetailerLocations(int retailerId)
         {
-            List<RetailerLocation> lijstRetailerLocations = repoRetailerLocations.GetRetailerLocations(retailerId);
+            List<RetailerLocation> retailerLocations = await repoRetailerLocations.GetRetailerLocations(retailerId);
 
-            return lijstRetailerLocations;
+            return retailerLocations;
         }
 
         /// <summary>
@@ -104,9 +112,9 @@ namespace UnityCard.API.Controllers
         [HttpGet]
         [Route("{retailerId}/locations/{locationId}")]
         [Authorize(Roles = ApplicationRoles.CUSTOMER)]
-        public RetailerLocation GetRetailerLocation(int retailerId, int locationId)
+        public async Task<RetailerLocation> GetRetailerLocation(int retailerId, int locationId)
         {
-            RetailerLocation retailerLocation = repoRetailerLocations.GetRetailerLocation(locationId);
+            RetailerLocation retailerLocation = await repoRetailerLocations.GetRetailerLocation(locationId);
 
             return retailerLocation;
         }
@@ -118,22 +126,38 @@ namespace UnityCard.API.Controllers
         [HttpPost]
         [Route("{retailerId}/locations")]
         [Authorize(Roles = ApplicationRoles.RETAILER)]
-        public void AddRetailerLocation(
-            int retailerId,
-            [FromBody]string name,
-            [FromBody]double latitude,
-            [FromBody]double longitude,
-            [FromBody]string street,
-            [FromBody]string number,
-            [FromBody]int zipCode,
-            [FromBody]string city,
-            [FromBody]string country)
+        public async Task<HttpResponseMessage> AddRetailerLocation(int retailerId, AddRetailerLocationBody body)
         {
+            if (body == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
 
-            RetailerLocation retailerLocation = new RetailerLocation(retailerId, name, latitude, longitude, street, number, zipCode, city, country);
+            RetailerLocation retailerLocation = new RetailerLocation(
+                retailerId,
+                body.Name,
+                body.Latitude,
+                body.Longitude,
+                body.Street,
+                body.Number,
+                body.ZipCode,
+                body.City,
+                body.Country);
 
             repoRetailerLocations.Insert(retailerLocation);
+            
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
 
+            try
+            {
+                await repoRetailerLocations.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                response = Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+
+            return response;
         }
 
         /// <summary>
@@ -142,11 +166,11 @@ namespace UnityCard.API.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("categories")]
-        public IEnumerable<string> GetAllRetailerCategories()
+        public async Task<List<RetailerCategory>> GetAllRetailerCategories()
         {
-            IEnumerable<string> lijst = (IEnumerable<string>)repoRetailerCategories.GetAll();
+            List<RetailerCategory> retailerCategories = (await repoRetailerCategories.GetAll()).ToList();
 
-            return lijst;
+            return retailerCategories;
         }
     }
 }

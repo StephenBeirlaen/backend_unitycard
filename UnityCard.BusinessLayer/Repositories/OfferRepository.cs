@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using UnityCard.BusinessLayer.Repositories.Interfaces;
 
@@ -10,7 +11,7 @@ namespace UnityCard.BusinessLayer.Repositories
 {
     public class OfferRepository : GenericRepository<Offer>, IOfferRepository
     {
-        public List<Offer> GetAllRetailerOffers(string userId)
+        public async Task<List<Offer>> GetAllRetailerOffers(string userId)
         {
             var query =
                 from o in context.Offers // FROM Offers
@@ -23,10 +24,10 @@ namespace UnityCard.BusinessLayer.Repositories
                 where lc.UserId == userId // WHERE LoyaltyCards.UserId=''
                 select o; // SELECT Offers.*
 
-            return query.ToList<Offer>();
+            return await query.ToListAsync<Offer>();
         }
 
-        public List<Offer> GetRetailerOffers(int retailerId, string userId)
+        public async Task<List<Offer>> GetRetailerOffers(int retailerId, string userId)
         {
             var query =
                 from o in context.Offers // FROM Offers
@@ -39,7 +40,7 @@ namespace UnityCard.BusinessLayer.Repositories
                 where lc.UserId == userId && o.RetailerId == retailerId // WHERE LoyaltyCards.UserId='' AND Offers.RetailerId = x
                 select o; // SELECT Offers.*
 
-            return query.ToList<Offer>();
+            return await query.ToListAsync<Offer>();
         }
     }
 }

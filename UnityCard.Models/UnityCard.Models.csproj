@@ -92,14 +92,19 @@
     <Compile Include="IdentityModels.cs" />
     <Compile Include="LoyaltyCard.cs" />
     <Compile Include="Offer.cs" />
+    <Compile Include="PostModels\AddLoyaltyCardRetailerBody.cs" />
+    <Compile Include="PostModels\AddRetailerBody.cs" />
+    <Compile Include="PostModels\AddRetailerLocationBody.cs" />
+    <Compile Include="PostModels\AddRetailerOfferBody.cs" />
+    <Compile Include="PostModels\ModifyLoyaltyPointsBody.cs" />
+    <Compile Include="PostModels\AwardLoyaltyPointsBody.cs" />
+    <Compile Include="PostModels\PushAdvertisementNotificationBody.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Retailer.cs" />
     <Compile Include="RetailerCategory.cs" />
     <Compile Include="RetailerLocation.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="PresentationModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="ERClassDiagram.cd" />

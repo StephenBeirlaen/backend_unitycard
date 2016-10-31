@@ -493,13 +493,13 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:UnityCard.API.Controllers.OfferController.AddRetailerOffer(System.Int32,System.String,System.String)">
+        <member name="M:UnityCard.API.Controllers.OfferController.AddRetailerOffer(System.Int32,UnityCard.Models.PostModels.AddRetailerOfferBody)">
             <summary>
             Add an offer for a specific retailer
             </summary>
             <returns></returns>
         </member>
-        <member name="M:UnityCard.API.Controllers.OfferController.PushAdvertisementNotification(System.Int32,System.String,System.String)">
+        <member name="M:UnityCard.API.Controllers.OfferController.PushAdvertisementNotification(System.Int32,UnityCard.Models.PostModels.PushAdvertisementNotificationBody)">
             <summary>
             Push a new ad notification to all clients of a retailer
             </summary>
@@ -511,7 +511,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:UnityCard.API.Controllers.RetailerController.AddRetailer(System.String,System.String,System.String,System.Int32,System.Boolean)">
+        <member name="M:UnityCard.API.Controllers.RetailerController.AddRetailer(UnityCard.Models.PostModels.AddRetailerBody)">
             <summary>
             Add a retailer
             </summary>
@@ -535,7 +535,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:UnityCard.API.Controllers.RetailerController.AddRetailerLocation(System.Int32,System.String,System.Double,System.Double,System.String,System.String,System.Int32,System.String,System.String)">
+        <member name="M:UnityCard.API.Controllers.RetailerController.AddRetailerLocation(System.Int32,UnityCard.Models.PostModels.AddRetailerLocationBody)">
             <summary>
             Add a location of a retailer (chain)
             </summary>
@@ -553,13 +553,13 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:UnityCard.API.Controllers.LoyaltyPointController.AwardLoyaltyPoints(System.String,System.Int32,System.Int32)">
+        <member name="M:UnityCard.API.Controllers.LoyaltyPointController.AwardLoyaltyPoints(System.String,System.Int32,UnityCard.Models.PostModels.AwardLoyaltyPointsBody)">
             <summary>
             Award an amount of loyalty points to the specified user
             </summary>
             <returns></returns>
         </member>
-        <member name="M:UnityCard.API.Controllers.LoyaltyPointController.ModifyLoyaltyPoints(System.String,System.Int32,System.Int32)">
+        <member name="M:UnityCard.API.Controllers.LoyaltyPointController.ModifyLoyaltyPoints(System.String,System.Int32,UnityCard.Models.PostModels.ModifyLoyaltyPointsBody)">
             <summary>
             Change the specified users's loyalty points
             </summary>
@@ -577,7 +577,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:UnityCard.API.Controllers.LoyaltyCardController.AddLoyaltyCardRetailer(System.String,System.Int32)">
+        <member name="M:UnityCard.API.Controllers.LoyaltyCardController.AddLoyaltyCardRetailer(System.String,UnityCard.Models.PostModels.AddLoyaltyCardRetailerBody)">
             <summary>
             Add a new retailer to the specified user's loyalty card
             </summary>

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace UnityCard.Models
 {
@@ -14,6 +15,7 @@ namespace UnityCard.Models
 
         [Required]
         public int RetailerCategoryId { get; set; }
+        [JsonIgnore]
         public virtual RetailerCategory RetailerCategory { get; set; }
 
         [Required]
@@ -26,10 +28,13 @@ namespace UnityCard.Models
 
         public string LogoUrl { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<LoyaltyPoint> LoyaltyPoints { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<RetailerLocation> RetailerLocations { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<Offer> Offers { get; set; }
 
         public Retailer()

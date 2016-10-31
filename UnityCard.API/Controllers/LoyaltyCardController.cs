@@ -3,32 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using UnityCard.API.Helpers;
 using UnityCard.BusinessLayer.Repositories;
 using UnityCard.BusinessLayer.Repositories.Interfaces;
 using UnityCard.Models;
+using UnityCard.Models.PostModels;
 
 namespace UnityCard.API.Controllers
 {
     [RoutePrefix("api/loyaltycards")]
     public class LoyaltyCardController : ApiController
     {
-        private ILoyaltyCardRepository repoLoyaltyCards; // todo: remove unused
-        private ILoyaltyPointRepository repoLoyaltyPoints;
-        private IOfferRepository repoOffers;
-        private IRetailerCategoryRepository repoRetailerCategories;
-        private IRetailerLocationRepository repoRetailerLocations;
-        private IRetailerRepository repoRetailers;
+        private ILoyaltyCardRepository repoLoyaltyCards;
 
-        public LoyaltyCardController(ILoyaltyCardRepository repoLoyaltyCards, ILoyaltyPointRepository repoLoyaltyPoints, IOfferRepository repoOffers, IRetailerCategoryRepository repoRetailerCategories, IRetailerLocationRepository repoRetailerLocations, IRetailerRepository repoRetailers)
+        public LoyaltyCardController(ILoyaltyCardRepository repoLoyaltyCards)
         {
             this.repoLoyaltyCards = repoLoyaltyCards;
-            this.repoLoyaltyPoints = repoLoyaltyPoints;
-            this.repoOffers = repoOffers;
-            this.repoRetailerCategories = repoRetailerCategories;
-            this.repoRetailerLocations = repoRetailerLocations;
-            this.repoRetailers = repoRetailers;
         }
 
         /// <summary>
@@ -38,9 +30,9 @@ namespace UnityCard.API.Controllers
         [HttpGet]
         [Route("{userId}")]
         [Authorize(Roles = ApplicationRoles.CUSTOMER)]
-        public LoyaltyCard GetLoyaltyCard(string userId)
+        public async Task<LoyaltyCard> GetLoyaltyCard(string userId)
         {
-            LoyaltyCard loyaltycard = repoLoyaltyCards.GetLoyaltyCard(userId);
+            LoyaltyCard loyaltycard = await repoLoyaltyCards.GetLoyaltyCard(userId);
 
             return loyaltycard;
         }
@@ -52,12 +44,11 @@ namespace UnityCard.API.Controllers
         [HttpGet]
         [Route("{userId}/retailers")]
         [Authorize(Roles = ApplicationRoles.CUSTOMER)]
-        public List<Retailer> GetLoyaltyCardRetailers(string userId)
+        public async Task<List<Retailer>> GetLoyaltyCardRetailers(string userId)
         {
+            List<Retailer> retailers = await repoLoyaltyCards.GetLoyaltyCardRetailers(userId);
 
-            List<Retailer> lijstRetailer = repoLoyaltyCards.GetLoyaltyCardRetailers(userId);
-
-            return lijstRetailer;
+            return retailers;
         }
 
         /// <summary>
@@ -67,14 +58,29 @@ namespace UnityCard.API.Controllers
         [HttpPost]
         [Route("{userId}/retailers")]
         [Authorize(Roles = ApplicationRoles.CUSTOMER)]
-        public void AddLoyaltyCardRetailer(string userId, [FromBody]int retailerId)
+        public async Task<HttpResponseMessage> AddLoyaltyCardRetailer(string userId, AddLoyaltyCardRetailerBody body)
         {
+            if (body == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
 
-            LoyaltyCard loyaltyCard = repoLoyaltyCards.GetLoyaltyCard(userId);
+            LoyaltyCard loyaltyCard = await repoLoyaltyCards.GetLoyaltyCard(userId);
 
-            Retailer retailer = repoRetailers.GetByID(retailerId);
+            LoyaltyPoint loyaltyPoint = await repoLoyaltyCards.AddLoyaltyCardRetailer(loyaltyCard, body.RetailerId);
 
-            repoLoyaltyCards.AddLoyaltyCardRetailer(loyaltyCard, retailer);
+            HttpResponseMessage response;
+
+            if (loyaltyPoint != null)
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK);
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            
+            return response;
         }
     }
 }

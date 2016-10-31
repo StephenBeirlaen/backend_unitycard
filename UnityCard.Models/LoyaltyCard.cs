@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace UnityCard.Models
 {
@@ -18,6 +19,7 @@ namespace UnityCard.Models
         [Required]
         public DateTime CreatedTimestamp { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<LoyaltyPoint> LoyaltyPoints { get; set; }
 
         public LoyaltyCard()

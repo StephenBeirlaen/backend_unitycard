@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using UnityCard.BusinessLayer.Context;
 using UnityCard.BusinessLayer.Repositories.Interfaces;
@@ -25,14 +26,15 @@ namespace UnityCard.BusinessLayer.Repositories
             this.dbSet = context.Set<TEntity>();
         }
 
-        public virtual IEnumerable<TEntity> GetAll()
+        public virtual async Task<IEnumerable<TEntity>> GetAll()
         {
-            return dbSet;
+            //return dbSet;
+            return await dbSet.ToListAsync();
         }
 
-        public virtual TEntity GetByID(object id)
+        public virtual async Task<TEntity> GetByID(object id)
         {
-            return dbSet.Find(id);
+            return await dbSet.FindAsync(id);
         }
 
         public virtual TEntity Insert(TEntity entity)
@@ -41,9 +43,9 @@ namespace UnityCard.BusinessLayer.Repositories
             return dbSet.Add(entity);
         }
 
-        public virtual void Delete(object id)
+        public virtual async Task Delete(object id)
         {
-            TEntity entityToDelete = dbSet.Find(id);
+            TEntity entityToDelete = await dbSet.FindAsync(id);
             Delete(entityToDelete);
         }
 
@@ -62,9 +64,9 @@ namespace UnityCard.BusinessLayer.Repositories
             context.Entry(entityToUpdate).State = EntityState.Modified;
         }
 
-        public virtual void SaveChanges()
+        public virtual async Task SaveChanges()
         {
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
     }
 }

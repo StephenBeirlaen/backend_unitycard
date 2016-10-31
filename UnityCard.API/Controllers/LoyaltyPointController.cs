@@ -3,31 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using UnityCard.API.Helpers;
 using UnityCard.BusinessLayer.Repositories.Interfaces;
 using UnityCard.Models;
+using UnityCard.Models.PostModels;
 
 namespace UnityCard.API.Controllers
 {
     [RoutePrefix("api/loyaltypoints")]
     public class LoyaltyPointController : ApiController
     {
-        private ILoyaltyCardRepository repoLoyaltyCards; // todo: remove unused
         private ILoyaltyPointRepository repoLoyaltyPoints;
-        private IOfferRepository repoOffers;
-        private IRetailerCategoryRepository repoRetailerCategories;
-        private IRetailerLocationRepository repoRetailerLocations;
-        private IRetailerRepository repoRetailers;
 
-        public LoyaltyPointController(ILoyaltyCardRepository repoLoyaltyCards, ILoyaltyPointRepository repoLoyaltyPoints, IOfferRepository repoOffers, IRetailerCategoryRepository repoRetailerCategories, IRetailerLocationRepository repoRetailerLocations, IRetailerRepository repoRetailers)
+        public LoyaltyPointController(ILoyaltyPointRepository repoLoyaltyPoints)
         {
-            this.repoLoyaltyCards = repoLoyaltyCards;
             this.repoLoyaltyPoints = repoLoyaltyPoints;
-            this.repoOffers = repoOffers;
-            this.repoRetailerCategories = repoRetailerCategories;
-            this.repoRetailerLocations = repoRetailerLocations;
-            this.repoRetailers = repoRetailers;
         }
 
         /// <summary>
@@ -37,9 +29,9 @@ namespace UnityCard.API.Controllers
         [HttpGet]
         [Route("{userId}")]
         [Authorize(Roles = ApplicationRoles.CUSTOMER)]
-        public int GetTotalLoyaltyPoints(string userId)
+        public async Task<int> GetTotalLoyaltyPoints(string userId)
         {
-            int totalLoyaltyPoints = repoLoyaltyPoints.GetTotalLoyaltyPoints(userId);
+            int totalLoyaltyPoints = await repoLoyaltyPoints.GetTotalLoyaltyPoints(userId);
 
             return totalLoyaltyPoints;
         }
@@ -51,9 +43,27 @@ namespace UnityCard.API.Controllers
         [HttpPost]
         [Route("{userId}/{retailerId}")]
         [Authorize(Roles = ApplicationRoles.RETAILER)]
-        public void AwardLoyaltyPoints(string userId, int retailerId, [FromBody]int loyaltyPointsIncrementAmount)
+        public async Task<HttpResponseMessage> AwardLoyaltyPoints(string userId, int retailerId, AwardLoyaltyPointsBody body)
         {
-            repoLoyaltyPoints.AwardLoyaltyPoints(userId, retailerId, loyaltyPointsIncrementAmount);
+            if (body == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+
+            LoyaltyPoint loyaltyPoint = await repoLoyaltyPoints.AwardLoyaltyPoints(userId, retailerId, body.LoyaltyPointsIncrementAmount);
+
+            HttpResponseMessage response;
+
+            if (loyaltyPoint != null)
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK);
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+
+            return response;
         }
 
         /// <summary>
@@ -63,10 +73,27 @@ namespace UnityCard.API.Controllers
         [HttpPut]
         [Route("{userId}/{retailerId}")]
         [Authorize(Roles = ApplicationRoles.RETAILER)]
-        public void ModifyLoyaltyPoints(string userId, int retailerId, [FromBody]int loyaltyPointsCount)
+        public async Task<HttpResponseMessage> ModifyLoyaltyPoints(string userId, int retailerId, ModifyLoyaltyPointsBody body)
         {
+            if (body == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
 
-            repoLoyaltyPoints.ModifyLoyaltyPoints(userId, retailerId, loyaltyPointsCount);
+            LoyaltyPoint loyaltyPoint = await repoLoyaltyPoints.ModifyLoyaltyPoints(userId, retailerId, body.LoyaltyPointsCount);
+
+            HttpResponseMessage response;
+
+            if (loyaltyPoint != null)
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK);
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+
+            return response;
         }
     }
 }

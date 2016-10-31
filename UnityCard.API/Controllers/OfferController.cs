@@ -3,31 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using UnityCard.API.Helpers;
 using UnityCard.BusinessLayer.Repositories.Interfaces;
 using UnityCard.Models;
+using UnityCard.Models.PostModels;
 
 namespace UnityCard.API.Controllers
 {
     [RoutePrefix("api/offers")]
     public class OfferController : ApiController
     {
-        private ILoyaltyCardRepository repoLoyaltyCards; // todo: remove unused
-        private ILoyaltyPointRepository repoLoyaltyPoints;
         private IOfferRepository repoOffers;
-        private IRetailerCategoryRepository repoRetailerCategories;
-        private IRetailerLocationRepository repoRetailerLocations;
-        private IRetailerRepository repoRetailers;
 
-        public OfferController(ILoyaltyCardRepository repoLoyaltyCards, ILoyaltyPointRepository repoLoyaltyPoints, IOfferRepository repoOffers, IRetailerCategoryRepository repoRetailerCategories, IRetailerLocationRepository repoRetailerLocations, IRetailerRepository repoRetailers)
+        public OfferController(IOfferRepository repoOffers)
         {
-            this.repoLoyaltyCards = repoLoyaltyCards;
-            this.repoLoyaltyPoints = repoLoyaltyPoints;
             this.repoOffers = repoOffers;
-            this.repoRetailerCategories = repoRetailerCategories;
-            this.repoRetailerLocations = repoRetailerLocations;
-            this.repoRetailers = repoRetailers;
         }
 
         /// <summary>
@@ -37,11 +29,11 @@ namespace UnityCard.API.Controllers
         [HttpGet]
         [Route("{userId}")]
         [Authorize(Roles = ApplicationRoles.CUSTOMER)]
-        public List<Offer> GetAllRetailerOffers(string userId)
+        public async Task<List<Offer>> GetAllRetailerOffers(string userId)
         {
-            List<Offer> lijstOffers = repoOffers.GetAllRetailerOffers(userId);
+            List<Offer> offers = await repoOffers.GetAllRetailerOffers(userId);
 
-            return lijstOffers;
+            return offers;
         }
 
         /// <summary>
@@ -51,11 +43,11 @@ namespace UnityCard.API.Controllers
         [HttpGet]
         [Route("{retailerId}/{userId}")]
         [Authorize(Roles = ApplicationRoles.CUSTOMER)]
-        public List<Offer> GetRetailerOffers(int retailerId, string userId)
+        public async Task<List<Offer>> GetRetailerOffers(int retailerId, string userId)
         {
-            List<Offer> lijstOffersByRetailer = repoOffers.GetRetailerOffers(retailerId, userId);
+            List<Offer> offersByRetailer = await repoOffers.GetRetailerOffers(retailerId, userId);
 
-            return lijstOffersByRetailer;
+            return offersByRetailer;
         }
 
         /// <summary>
@@ -65,14 +57,29 @@ namespace UnityCard.API.Controllers
         [HttpPost]
         [Route("{retailerId}")]
         [Authorize(Roles = ApplicationRoles.RETAILER)]
-        public void AddRetailerOffer(
-            int retailerId,
-            [FromBody]string offerDemand,
-            [FromBody]string offerReceive)
+        public async Task<HttpResponseMessage> AddRetailerOffer(int retailerId, AddRetailerOfferBody body)
         {
-            Offer offer = new Offer(retailerId, offerDemand, offerReceive);
+            if (body == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+
+            Offer offer = new Offer(retailerId, body.OfferDemand, body.OfferReceive);
 
             repoOffers.Insert(offer);
+            
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+
+            try
+            {
+                await repoOffers.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                response = Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+
+            return response;
         }
 
         /// <summary>
@@ -82,12 +89,17 @@ namespace UnityCard.API.Controllers
         [HttpPost]
         [Route("{retailerId}/push")]
         [Authorize(Roles = ApplicationRoles.RETAILER)]
-        public void PushAdvertisementNotification(
-            int retailerId,
-            [FromBody]string title,
-            [FromBody]string description)
+        public async Task<HttpResponseMessage> PushAdvertisementNotification(int retailerId, PushAdvertisementNotificationBody body)
         {
+            if (body == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+
             // todo GCM (uitbreiding voor later)
+
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+            return response;
         }
     }
 }
