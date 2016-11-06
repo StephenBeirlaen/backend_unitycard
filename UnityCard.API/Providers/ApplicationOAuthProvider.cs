@@ -56,6 +56,8 @@ namespace UnityCard.API.Providers
             {
                 context.AdditionalResponseParameters.Add(property.Key, property.Value);
             }
+            // add user Id to data
+            context.AdditionalResponseParameters.Add("user_id", context.Identity.GetUserId());
 
             return Task.FromResult<object>(null);
         }
