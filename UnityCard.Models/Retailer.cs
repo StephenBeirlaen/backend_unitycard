@@ -51,7 +51,7 @@ namespace UnityCard.Models
             Tagline = tagline;
             Chain = chain;
             LogoUrl = logoUrl;
-            UpdatedTimestamp = DateTime.Now;
+            UpdatedTimestamp = DateTime.UtcNow;
         }
     }
 }

@@ -39,8 +39,8 @@ namespace UnityCard.Models
             RetailerId = retailerId;
             OfferDemand = offerDemand;
             OfferReceive = offerReceive;
-            CreatedTimestamp = DateTime.Now;
-            UpdatedTimestamp = DateTime.Now;
+            CreatedTimestamp = DateTime.UtcNow;
+            UpdatedTimestamp = DateTime.UtcNow;
         }
     }
 }

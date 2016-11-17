@@ -32,8 +32,8 @@ namespace UnityCard.Models
         public LoyaltyCard(string userId)
         {
             UserId = userId;
-            CreatedTimestamp = DateTime.Now;
-            UpdatedTimestamp = DateTime.Now;
+            CreatedTimestamp = DateTime.UtcNow;
+            UpdatedTimestamp = DateTime.UtcNow;
         }
     }
 }

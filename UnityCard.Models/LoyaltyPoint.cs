@@ -38,7 +38,7 @@ namespace UnityCard.Models
             LoyaltyCardId = loyaltyCardId;
             RetailerId = retailerId;
             Points = points;
-            UpdatedTimestamp = DateTime.Now;
+            UpdatedTimestamp = DateTime.UtcNow;
         }
     }
 }

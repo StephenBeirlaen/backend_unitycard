@@ -26,7 +26,7 @@ namespace UnityCard.API.Providers
 
         public override void Create(AuthenticationTokenCreateContext context)
         {
-            context.Ticket.Properties.ExpiresUtc = new DateTimeOffset(DateTime.Now.AddDays(_tokenExpiration));
+            context.Ticket.Properties.ExpiresUtc = new DateTimeOffset(DateTime.UtcNow.AddDays(_tokenExpiration));
             context.SetToken(context.SerializeTicket());
         }
 

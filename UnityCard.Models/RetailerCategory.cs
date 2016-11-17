@@ -28,7 +28,7 @@ namespace UnityCard.Models
         public RetailerCategory(string name)
         {
             Name = name;
-            UpdatedTimestamp = DateTime.Now;
+            UpdatedTimestamp = DateTime.UtcNow;
         }
     }
 }

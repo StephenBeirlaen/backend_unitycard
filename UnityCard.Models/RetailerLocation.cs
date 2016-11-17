@@ -60,7 +60,7 @@ namespace UnityCard.Models
             ZipCode = zipCode;
             City = city;
             Country = country;
-            UpdatedTimestamp = DateTime.Now;
+            UpdatedTimestamp = DateTime.UtcNow;
         }
     }
 }
