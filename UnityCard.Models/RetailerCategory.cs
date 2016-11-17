@@ -15,6 +15,9 @@ namespace UnityCard.Models
         [Required]
         public string Name { get; set; }
 
+        [Required]
+        public DateTime UpdatedTimestamp { get; set; }
+
         [JsonIgnore]
         public virtual ICollection<Retailer> Retailers { get; set; }
 
@@ -25,6 +28,7 @@ namespace UnityCard.Models
         public RetailerCategory(string name)
         {
             Name = name;
+            UpdatedTimestamp = DateTime.Now;
         }
     }
 }

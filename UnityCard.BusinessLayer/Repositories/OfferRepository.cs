@@ -11,7 +11,7 @@ namespace UnityCard.BusinessLayer.Repositories
 {
     public class OfferRepository : GenericRepository<Offer>, IOfferRepository
     {
-        public async Task<List<Offer>> GetAllRetailerOffers(string userId)
+        public async Task<List<Offer>> GetAllRetailerOffers(string userId, DateTime lastUpdatedTimestamp)
         {
             var query =
                 from o in context.Offers // FROM Offers
@@ -22,12 +22,13 @@ namespace UnityCard.BusinessLayer.Repositories
                 join lc in context.LoyaltyCards // JOIN LoyaltyCards
                 on lp.LoyaltyCardId equals lc.Id // ON LoyaltyPoints.LoyaltyCardId = LoyaltyCards.Id
                 where lc.UserId == userId // WHERE LoyaltyCards.UserId=''
+                && o.UpdatedTimestamp > lastUpdatedTimestamp
                 select o; // SELECT Offers.*
 
             return await query.ToListAsync<Offer>();
         }
 
-        public async Task<List<Offer>> GetRetailerOffers(int retailerId, string userId)
+        public async Task<List<Offer>> GetRetailerOffers(int retailerId, string userId, DateTime lastUpdatedTimestamp)
         {
             var query =
                 from o in context.Offers // FROM Offers
@@ -38,6 +39,7 @@ namespace UnityCard.BusinessLayer.Repositories
                 join lc in context.LoyaltyCards // JOIN LoyaltyCards
                 on lp.LoyaltyCardId equals lc.Id // ON LoyaltyPoints.LoyaltyCardId = LoyaltyCards.Id
                 where lc.UserId == userId && o.RetailerId == retailerId // WHERE LoyaltyCards.UserId='' AND Offers.RetailerId = x
+                && o.UpdatedTimestamp > lastUpdatedTimestamp
                 select o; // SELECT Offers.*
 
             return await query.ToListAsync<Offer>();

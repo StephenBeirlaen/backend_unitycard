@@ -19,6 +19,9 @@ namespace UnityCard.Models
         [Required]
         public DateTime CreatedTimestamp { get; set; }
 
+        [Required]
+        public DateTime UpdatedTimestamp { get; set; }
+
         [JsonIgnore]
         public virtual ICollection<LoyaltyPoint> LoyaltyPoints { get; set; }
 
@@ -30,6 +33,7 @@ namespace UnityCard.Models
         {
             UserId = userId;
             CreatedTimestamp = DateTime.Now;
+            UpdatedTimestamp = DateTime.Now;
         }
     }
 }

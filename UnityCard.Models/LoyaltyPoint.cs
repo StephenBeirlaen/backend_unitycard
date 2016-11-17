@@ -26,15 +26,19 @@ namespace UnityCard.Models
         [Required]
         public int Points { get; set; }
 
+        [Required]
+        public DateTime UpdatedTimestamp { get; set; }
+
         public LoyaltyPoint()
         {
         }
-
+        
         public LoyaltyPoint(int loyaltyCardId, int retailerId, int points)
         {
             LoyaltyCardId = loyaltyCardId;
             RetailerId = retailerId;
             Points = points;
+            UpdatedTimestamp = DateTime.Now;
         }
     }
 }

@@ -28,6 +28,9 @@ namespace UnityCard.Models
 
         public string LogoUrl { get; set; }
 
+        [Required]
+        public DateTime UpdatedTimestamp { get; set; }
+
         [JsonIgnore]
         public virtual ICollection<LoyaltyPoint> LoyaltyPoints { get; set; }
 
@@ -48,6 +51,7 @@ namespace UnityCard.Models
             Tagline = tagline;
             Chain = chain;
             LogoUrl = logoUrl;
+            UpdatedTimestamp = DateTime.Now;
         }
     }
 }

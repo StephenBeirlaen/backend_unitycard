@@ -285,9 +285,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ApplicationRoles.cs" />
+    <Compile Include="Helpers\TimestampHelper.cs" />
     <Compile Include="Migrations\201610271330180_UnityCard.cs" />
     <Compile Include="Migrations\201610271330180_UnityCard.Designer.cs">
       <DependentUpon>201610271330180_UnityCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611170850249_UnityCard1.cs" />
+    <Compile Include="Migrations\201611170850249_UnityCard1.Designer.cs">
+      <DependentUpon>201611170850249_UnityCard1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -365,6 +370,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201610271330180_UnityCard.resx">
       <DependentUpon>201610271330180_UnityCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611170850249_UnityCard1.resx">
+      <DependentUpon>201611170850249_UnityCard1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -27,6 +27,9 @@ namespace UnityCard.Models
         [Required]
         public DateTime CreatedTimestamp { get; set; }
 
+        [Required]
+        public DateTime UpdatedTimestamp { get; set; }
+
         public Offer()
         {
         }
@@ -37,6 +40,7 @@ namespace UnityCard.Models
             OfferDemand = offerDemand;
             OfferReceive = offerReceive;
             CreatedTimestamp = DateTime.Now;
+            UpdatedTimestamp = DateTime.Now;
         }
     }
 }

@@ -11,11 +11,12 @@ namespace UnityCard.BusinessLayer.Repositories
 {
     public class RetailerLocationRepository : GenericRepository<RetailerLocation>, IRetailerLocationRepository
     {
-        public async Task<List<RetailerLocation>> GetRetailerLocations(int retailerId)
+        public async Task<List<RetailerLocation>> GetRetailerLocations(int retailerId, DateTime lastUpdatedTimestamp)
         {
             var query =
                 from rl in context.RetailerLocations // FROM RetailerLocations
                 where rl.RetailerId == retailerId // WHERE RetailerLocations.RetailerId = retailerId
+                && rl.UpdatedTimestamp > lastUpdatedTimestamp
                 select rl; // SELECT RetailerLocations.*
 
             return await query.ToListAsync<RetailerLocation>();

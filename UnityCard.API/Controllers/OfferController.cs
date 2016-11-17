@@ -29,9 +29,9 @@ namespace UnityCard.API.Controllers
         [HttpGet]
         [Route("{userId}")]
         [Authorize(Roles = ApplicationRoles.CUSTOMER)]
-        public async Task<List<Offer>> GetAllRetailerOffers(string userId)
+        public async Task<List<Offer>> GetAllRetailerOffers(string userId, [FromUri] long lastUpdatedTimestamp)
         {
-            List<Offer> offers = await repoOffers.GetAllRetailerOffers(userId);
+            List<Offer> offers = await repoOffers.GetAllRetailerOffers(userId, TimestampHelper.UnixTimeStampToDateTime(lastUpdatedTimestamp));
 
             return offers;
         }
@@ -43,9 +43,9 @@ namespace UnityCard.API.Controllers
         [HttpGet]
         [Route("{retailerId}/{userId}")]
         [Authorize(Roles = ApplicationRoles.CUSTOMER)]
-        public async Task<List<Offer>> GetRetailerOffers(int retailerId, string userId)
+        public async Task<List<Offer>> GetRetailerOffers(int retailerId, string userId, [FromUri] long lastUpdatedTimestamp)
         {
-            List<Offer> offersByRetailer = await repoOffers.GetRetailerOffers(retailerId, userId);
+            List<Offer> offersByRetailer = await repoOffers.GetRetailerOffers(retailerId, userId, TimestampHelper.UnixTimeStampToDateTime(lastUpdatedTimestamp));
 
             return offersByRetailer;
         }

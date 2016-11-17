@@ -12,13 +12,14 @@ namespace UnityCard.BusinessLayer.Repositories
 {
     public class LoyaltyPointRepository : GenericRepository<LoyaltyPoint>, ILoyaltyPointRepository
     {
-        public async Task<int> GetTotalLoyaltyPoints(string userId)
+        public async Task<int> GetTotalLoyaltyPoints(string userId, DateTime lastUpdatedTimestamp)
         {
             int result = await
                 (from lp in context.LoyaltyPoints // FROM LoyaltyPoints
                 join lc in context.LoyaltyCards // JOIN LoyaltyCards
                 on lp.LoyaltyCardId equals lc.Id // ON LoyaltyPoints.LoyaltyCardId=LoyaltyCards.Id
                 where lc.UserId == userId // WHERE LoyaltyCards.UserId = 'userid'
+                && lp.UpdatedTimestamp > lastUpdatedTimestamp
                 select lp.Points).SumAsync(); // SELECT SUM(LoyaltyPoints.Value)
             
             return result;

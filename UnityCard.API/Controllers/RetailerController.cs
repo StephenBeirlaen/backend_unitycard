@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Web.Http;
 using UnityCard.API.Helpers;
@@ -33,9 +34,9 @@ namespace UnityCard.API.Controllers
         [HttpGet]
         [Route("")]
         [Authorize(Roles = ApplicationRoles.CUSTOMER)]
-        public async Task<List<Retailer>> GetAllRetailers()
+        public async Task<List<Retailer>> GetAllRetailers([FromUri] long lastUpdatedTimestamp)
         {
-            List<Retailer> retailers = (await repoRetailers.GetAll()).ToList();
+            List<Retailer> retailers = (await repoRetailers.GetAllRetailers(TimestampHelper.UnixTimeStampToDateTime(lastUpdatedTimestamp))).ToList();
 
             return retailers;
         }
@@ -98,9 +99,9 @@ namespace UnityCard.API.Controllers
         [HttpGet]
         [Route("{retailerId}/locations")]
         [Authorize(Roles = ApplicationRoles.CUSTOMER)]
-        public async Task<List<RetailerLocation>> GetRetailerLocations(int retailerId)
+        public async Task<List<RetailerLocation>> GetRetailerLocations(int retailerId, [FromUri] long lastUpdatedTimestamp)
         {
-            List<RetailerLocation> retailerLocations = await repoRetailerLocations.GetRetailerLocations(retailerId);
+            List<RetailerLocation> retailerLocations = await repoRetailerLocations.GetRetailerLocations(retailerId, TimestampHelper.UnixTimeStampToDateTime(lastUpdatedTimestamp));
 
             return retailerLocations;
         }
@@ -166,9 +167,9 @@ namespace UnityCard.API.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("categories")]
-        public async Task<List<RetailerCategory>> GetAllRetailerCategories()
+        public async Task<List<RetailerCategory>> GetAllRetailerCategories([FromUri] long lastUpdatedTimestamp)
         {
-            List<RetailerCategory> retailerCategories = (await repoRetailerCategories.GetAll()).ToList();
+            List<RetailerCategory> retailerCategories = await repoRetailerCategories.GetAllRetailerCategories(TimestampHelper.UnixTimeStampToDateTime(lastUpdatedTimestamp));
 
             return retailerCategories;
         }

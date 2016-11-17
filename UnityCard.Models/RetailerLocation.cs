@@ -42,6 +42,9 @@ namespace UnityCard.Models
         [Required]
         public string Country { get; set; }
 
+        [Required]
+        public DateTime UpdatedTimestamp { get; set; }
+
         public RetailerLocation()
         {
         }
@@ -57,6 +60,7 @@ namespace UnityCard.Models
             ZipCode = zipCode;
             City = city;
             Country = country;
+            UpdatedTimestamp = DateTime.Now;
         }
     }
 }

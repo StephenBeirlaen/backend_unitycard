@@ -481,13 +481,13 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
-        <member name="M:UnityCard.API.Controllers.OfferController.GetAllRetailerOffers(System.String)">
+        <member name="M:UnityCard.API.Controllers.OfferController.GetAllRetailerOffers(System.String,System.Int64)">
             <summary>
             Retrieves all relevant offers according to a users loyalty card
             </summary>
             <returns></returns>
         </member>
-        <member name="M:UnityCard.API.Controllers.OfferController.GetRetailerOffers(System.Int32,System.String)">
+        <member name="M:UnityCard.API.Controllers.OfferController.GetRetailerOffers(System.Int32,System.String,System.Int64)">
             <summary>
             Retrieves all relevant offers of a specific retailer according to the user's loyalty card
             </summary>
@@ -505,7 +505,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:UnityCard.API.Controllers.RetailerController.GetAllRetailers">
+        <member name="M:UnityCard.API.Controllers.RetailerController.GetAllRetailers(System.Int64)">
             <summary>
             Retrieves all retailers
             </summary>
@@ -523,7 +523,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:UnityCard.API.Controllers.RetailerController.GetRetailerLocations(System.Int32)">
+        <member name="M:UnityCard.API.Controllers.RetailerController.GetRetailerLocations(System.Int32,System.Int64)">
             <summary>
             Retrieves all locations of a retailer
             </summary>
@@ -541,13 +541,13 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:UnityCard.API.Controllers.RetailerController.GetAllRetailerCategories">
+        <member name="M:UnityCard.API.Controllers.RetailerController.GetAllRetailerCategories(System.Int64)">
             <summary>
             Retrieves all retailer categories
             </summary>
             <returns></returns>
         </member>
-        <member name="M:UnityCard.API.Controllers.LoyaltyPointController.GetTotalLoyaltyPoints(System.String)">
+        <member name="M:UnityCard.API.Controllers.LoyaltyPointController.GetTotalLoyaltyPoints(System.String,System.Int64)">
             <summary>
             Get total amount of loyalty points collected
             </summary>
@@ -565,13 +565,13 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:UnityCard.API.Controllers.LoyaltyCardController.GetLoyaltyCard(System.String)">
+        <member name="M:UnityCard.API.Controllers.LoyaltyCardController.GetLoyaltyCard(System.String,System.Int64)">
             <summary>
             Retrieves the specified user's loyalty card
             </summary>
             <returns></returns>
         </member>
-        <member name="M:UnityCard.API.Controllers.LoyaltyCardController.GetLoyaltyCardRetailers(System.String)">
+        <member name="M:UnityCard.API.Controllers.LoyaltyCardController.GetLoyaltyCardRetailers(System.String,System.Int64)">
             <summary>
             Retrieves all retailers attached to the specified user's loyalty card
             </summary>

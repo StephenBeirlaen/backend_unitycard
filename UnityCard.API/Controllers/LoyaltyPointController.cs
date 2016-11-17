@@ -29,9 +29,9 @@ namespace UnityCard.API.Controllers
         [HttpGet]
         [Route("{userId}")]
         [Authorize(Roles = ApplicationRoles.CUSTOMER)]
-        public async Task<int> GetTotalLoyaltyPoints(string userId)
+        public async Task<int> GetTotalLoyaltyPoints(string userId, [FromUri] long lastUpdatedTimestamp)
         {
-            int totalLoyaltyPoints = await repoLoyaltyPoints.GetTotalLoyaltyPoints(userId);
+            int totalLoyaltyPoints = await repoLoyaltyPoints.GetTotalLoyaltyPoints(userId, TimestampHelper.UnixTimeStampToDateTime(lastUpdatedTimestamp));
 
             return totalLoyaltyPoints;
         }

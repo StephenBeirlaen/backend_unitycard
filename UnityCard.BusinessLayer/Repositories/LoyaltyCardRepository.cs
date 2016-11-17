@@ -19,7 +19,16 @@ namespace UnityCard.BusinessLayer.Repositories
             return await query.SingleOrDefaultAsync();
         }
 
-        public async Task<List<Retailer>> GetLoyaltyCardRetailers(string userId)
+        public async Task<LoyaltyCard> GetLoyaltyCard(string userId, DateTime lastUpdatedTimestamp)
+        {
+            var query = (from lc in context.LoyaltyCards.Include(lc => lc.LoyaltyPoints)
+                         where lc.UserId == userId
+                         && lc.UpdatedTimestamp > lastUpdatedTimestamp
+                         select lc);
+            return await query.SingleOrDefaultAsync();
+        }
+
+        public async Task<List<Retailer>> GetLoyaltyCardRetailers(string userId, DateTime lastUpdatedTimestamp)
         {
             var query =
                 from lc in context.LoyaltyCards // FROM LoyaltyCards
@@ -28,6 +37,7 @@ namespace UnityCard.BusinessLayer.Repositories
                 join r in context.Retailers // JOIN Retailers
                 on lp.RetailerId equals r.Id // ON LoyaltyPoints.RetailerId = Retailers.Id
                 where lc.UserId == userId // WHERE LoyaltyCards.UserId = 'userid'
+                && r.UpdatedTimestamp > lastUpdatedTimestamp
                 select r; // SELECT Retailers.*
 
             return await query.ToListAsync<Retailer>();

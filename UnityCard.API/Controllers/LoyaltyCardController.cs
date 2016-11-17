@@ -30,9 +30,9 @@ namespace UnityCard.API.Controllers
         [HttpGet]
         [Route("{userId}")]
         [Authorize(Roles = ApplicationRoles.CUSTOMER)]
-        public async Task<LoyaltyCard> GetLoyaltyCard(string userId)
+        public async Task<LoyaltyCard> GetLoyaltyCard(string userId, [FromUri] long lastUpdatedTimestamp)
         {
-            LoyaltyCard loyaltycard = await repoLoyaltyCards.GetLoyaltyCard(userId);
+            LoyaltyCard loyaltycard = await repoLoyaltyCards.GetLoyaltyCard(userId, TimestampHelper.UnixTimeStampToDateTime(lastUpdatedTimestamp));
 
             return loyaltycard;
         }
@@ -44,9 +44,9 @@ namespace UnityCard.API.Controllers
         [HttpGet]
         [Route("{userId}/retailers")]
         [Authorize(Roles = ApplicationRoles.CUSTOMER)]
-        public async Task<List<Retailer>> GetLoyaltyCardRetailers(string userId)
+        public async Task<List<Retailer>> GetLoyaltyCardRetailers(string userId, [FromUri] long lastUpdatedTimestamp)
         {
-            List<Retailer> retailers = await repoLoyaltyCards.GetLoyaltyCardRetailers(userId);
+            List<Retailer> retailers = await repoLoyaltyCards.GetLoyaltyCardRetailers(userId, TimestampHelper.UnixTimeStampToDateTime(lastUpdatedTimestamp));
 
             return retailers;
         }
