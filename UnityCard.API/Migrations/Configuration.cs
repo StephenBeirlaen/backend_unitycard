@@ -45,13 +45,13 @@ namespace UnityCard.API.Migrations
             }
 
             // ApplicationUsers aanmaken
-            ApplicationUser user = context.Users.FirstOrDefault(u => u.Email.Equals("stephen.beirlaen@student.howest.be"));
-            if (user == null)
+            ApplicationUser customer1 = context.Users.FirstOrDefault(u => u.Email.Equals("stephen.beirlaen@student.howest.be"));
+            if (customer1 == null)
             {
                 var store = new UserStore<ApplicationUser>(context);
                 var manager = new UserManager<ApplicationUser>(store);
 
-                user = new ApplicationUser()
+                customer1 = new ApplicationUser()
                 {
                     LastName = "Beirlaen",
                     FirstName = "Stephen",
@@ -61,8 +61,27 @@ namespace UnityCard.API.Migrations
                     DisableNotifications = false
                 };
 
-                manager.Create(user, "-Password1");
-                manager.AddToRole(user.Id, ApplicationRoles.CUSTOMER);
+                manager.Create(customer1, "-Password1");
+                manager.AddToRole(customer1.Id, ApplicationRoles.CUSTOMER);
+            }
+            ApplicationUser retailer1 = context.Users.FirstOrDefault(u => u.Email.Equals("lorenz.vercoutere@student.howest.be"));
+            if (retailer1 == null)
+            {
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+
+                retailer1 = new ApplicationUser()
+                {
+                    LastName = "Vercoutere",
+                    FirstName = "Lorenz",
+                    Email = "lorenz.vercoutere@student.howest.be",
+                    UserName = "lorenz.vercoutere@student.howest.be",
+                    Language = "nl-BE",
+                    DisableNotifications = false
+                };
+
+                manager.Create(retailer1, "-Password1");
+                manager.AddToRole(retailer1.Id, ApplicationRoles.RETAILER);
             }
 
             // Dummy data invoeren
@@ -70,7 +89,7 @@ namespace UnityCard.API.Migrations
             // LoyaltyCards
             var loyaltyCards = new List<LoyaltyCard>
             {
-                new LoyaltyCard(user.Id)
+                new LoyaltyCard(customer1.Id)
             };
             loyaltyCards.ForEach(t => context.LoyaltyCards.AddOrUpdate<LoyaltyCard>(o => o.UserId, t));
             context.SaveChanges();
