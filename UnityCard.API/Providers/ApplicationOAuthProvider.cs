@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
+using UnityCard.API.Helpers;
 using UnityCard.Models;
 
 namespace UnityCard.API.Providers
@@ -58,6 +59,17 @@ namespace UnityCard.API.Providers
             }
             // add user Id to data
             context.AdditionalResponseParameters.Add("user_id", context.Identity.GetUserId());
+
+            // add user role to data (we ondersteunen maar 1 rol per user dus dit is geen array)
+            List<String> roles = context.Identity.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).ToList();
+            if (roles.Contains(ApplicationRoles.CUSTOMER))
+            {
+                context.AdditionalResponseParameters.Add("user_role", ApplicationRoles.CUSTOMER);
+            }
+            else if (roles.Contains(ApplicationRoles.RETAILER))
+            {
+                context.AdditionalResponseParameters.Add("user_role", ApplicationRoles.RETAILER);
+            }
 
             return Task.FromResult<object>(null);
         }
