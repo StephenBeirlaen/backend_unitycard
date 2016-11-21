@@ -1,6 +1,7 @@
 using Microsoft.Practices.Unity;
 using System.Web.Http;
 using Unity.WebApi;
+using UnityCard.API.Controllers;
 using UnityCard.BusinessLayer.Repositories;
 using UnityCard.BusinessLayer.Repositories.Interfaces;
 
@@ -16,6 +17,8 @@ namespace UnityCard.API
             // it is NOT necessary to register your controllers
 
             // e.g. container.RegisterType<ITestService, TestService>();
+
+            container.RegisterType<AccountController>(new InjectionConstructor());
 
             container.RegisterType<ILoyaltyCardRepository, LoyaltyCardRepository>();
             container.RegisterType<ILoyaltyPointRepository, LoyaltyPointRepository>();

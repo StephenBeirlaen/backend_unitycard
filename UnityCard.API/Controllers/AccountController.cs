@@ -328,7 +328,15 @@ namespace UnityCard.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new ApplicationUser()
+            {
+                UserName = model.Email,
+                Email = model.Email,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Language = model.Language,
+                DisableNotifications = false
+            };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
