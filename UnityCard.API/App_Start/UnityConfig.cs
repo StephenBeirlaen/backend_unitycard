@@ -18,7 +18,7 @@ namespace UnityCard.API
 
             // e.g. container.RegisterType<ITestService, TestService>();
 
-            container.RegisterType<AccountController>(new InjectionConstructor());
+            container.RegisterType<AccountController>(new InjectionConstructor(new ResolvedParameter<ILoyaltyCardRepository>()));
 
             container.RegisterType<ILoyaltyCardRepository, LoyaltyCardRepository>();
             container.RegisterType<ILoyaltyPointRepository, LoyaltyPointRepository>();
