@@ -17,6 +17,7 @@ using UnityCard.API.Helpers;
 using UnityCard.Models;
 using UnityCard.API.Providers;
 using UnityCard.API.Results;
+using UnityCard.BusinessLayer.Repositories.Interfaces;
 
 namespace UnityCard.API.Controllers
 {
@@ -27,8 +28,15 @@ namespace UnityCard.API.Controllers
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
 
+        private ILoyaltyCardRepository repoLoyaltyCards;
+
         public AccountController()
         {
+        }
+
+        public AccountController(ILoyaltyCardRepository repoLoyaltyCards)
+        {
+            this.repoLoyaltyCards = repoLoyaltyCards;
         }
 
         public AccountController(ApplicationUserManager userManager,
@@ -344,6 +352,10 @@ namespace UnityCard.API.Controllers
             if (result.Succeeded)
             {
                 await UserManager.AddToRoleAsync(user.Id, ApplicationRoles.CUSTOMER);
+
+                LoyaltyCard loyaltyCard = new LoyaltyCard(user.Id);
+                repoLoyaltyCards.Insert(loyaltyCard);
+                await repoLoyaltyCards.SaveChanges();
             }
             else {
                 return GetErrorResult(result);
