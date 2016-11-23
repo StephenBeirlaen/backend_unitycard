@@ -13,6 +13,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
+using UnityCard.API.Helpers;
 using UnityCard.Models;
 using UnityCard.API.Providers;
 using UnityCard.API.Results;
@@ -340,8 +341,11 @@ namespace UnityCard.API.Controllers
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
-            if (!result.Succeeded)
+            if (result.Succeeded)
             {
+                await UserManager.AddToRoleAsync(user.Id, ApplicationRoles.CUSTOMER);
+            }
+            else {
                 return GetErrorResult(result);
             }
 
