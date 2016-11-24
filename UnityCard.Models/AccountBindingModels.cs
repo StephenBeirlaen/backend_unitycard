@@ -52,6 +52,7 @@ namespace UnityCard.Models
         // Toevoeging:
 
         [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 1)]
         [Display(Name = "FirstName")]
         public string FirstName { get; set; }
 
@@ -61,7 +62,7 @@ namespace UnityCard.Models
         public string LastName { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 1)]
+        [StringLength(5, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 5)]
         [Display(Name = "Language")]
         public string Language { get; set; }
     }
