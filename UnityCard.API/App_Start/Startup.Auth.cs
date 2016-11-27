@@ -59,15 +59,15 @@ namespace UnityCard.API
             //    consumerKey: "",
             //    consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //    appId: "",
-            //    appSecret: "");
+            app.UseFacebookAuthentication(
+                appId: "339748679723003",
+                appSecret: "f4ec33187e6a07d38a5d2b30d3b19fae");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "190077193197-d64if6qkkqdca45q1o61ehfr634mqo41.apps.googleusercontent.com",
+                ClientSecret = "51vZdm7NvjMriFCyMN0VAe5Z"
+            });
         }
     }
 }
