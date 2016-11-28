@@ -99,8 +99,11 @@ namespace UnityCard.API.Controllers
 
                 if (retailer != null)
                 {
+                    String[] FcmTokens = (await repoRetailers.GetAllUserFcmTokensAttachedToRetailer(retailerId)).ToArray();
+
                     AdvertisementNotification advertisementNotification = new AdvertisementNotification(retailerId, body.Title);
                     GcmHelper.SendNotification(
+                        FcmTokens,
                         retailerId,
                         retailer.Name,
                         body.Title);

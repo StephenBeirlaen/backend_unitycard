@@ -13,7 +13,7 @@ namespace UnityCard.API.Helpers
 {
     public class GcmHelper
     {
-        public static String SendNotification(int retailerId, string retailerName, string message)
+        public static String SendNotification(String[] recipients, int retailerId, string retailerName, string message)
         {
             const String GoogleFcmApiKey = "AIzaSyD1IsQnX_3W_k2MnHs_q0t9I8VQohk-PGk";
 
@@ -28,7 +28,7 @@ namespace UnityCard.API.Helpers
             String body = JsonConvert.SerializeObject(
                 new
                 {
-                    to = "/topics/advertisements/" + retailerId,
+                    registration_ids = recipients,
                     data = new
                     {
                         message = "AdvertisementUploaded",
