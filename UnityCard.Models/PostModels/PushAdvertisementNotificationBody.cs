@@ -9,6 +9,5 @@ namespace UnityCard.Models.PostModels
     public class PushAdvertisementNotificationBody
     {
         public string Title { get; set; }
-        public string Description { get; set; }
     }
 }

@@ -13,13 +13,10 @@ namespace UnityCard.Models
 
         public string Title { get; set; }
 
-        public string Description { get; set; }
-
-        public AdvertisementNotification(int retailerId, string title, string description)
+        public AdvertisementNotification(int retailerId, string title)
         {
             RetailerId = retailerId;
             Title = title;
-            Description = description;
         }
     }
 }

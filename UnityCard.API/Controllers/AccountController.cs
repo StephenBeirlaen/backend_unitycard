@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -17,6 +18,7 @@ using UnityCard.API.Helpers;
 using UnityCard.Models;
 using UnityCard.API.Providers;
 using UnityCard.API.Results;
+using UnityCard.BusinessLayer.Context;
 using UnityCard.BusinessLayer.Repositories.Interfaces;
 
 namespace UnityCard.API.Controllers
@@ -394,6 +396,37 @@ namespace UnityCard.API.Controllers
             {
                 return GetErrorResult(result); 
             }
+            return Ok();
+        }
+
+        // POST api/Account/ChangeFcmToken
+        [Route("ChangeFcmToken")]
+        [Authorize]
+        public async Task<IHttpActionResult> ChangeFcmToken(ChangeFcmTokenBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // Get the current logged in UserId, so you can look the user up in ASP.NET Identity system
+            var currentUserId = User.Identity.GetUserId();
+            if (currentUserId == null) return NotFound();
+
+            // Instantiate the UserManager in ASP.Identity system so you can look up the user in the system
+            UserStore<ApplicationUser> userStore = new UserStore<ApplicationUser>(new UnityCardDbContext());
+            var manager = new UserManager<ApplicationUser>(userStore);
+            // Get the User object
+            var currentUser = manager.FindById(currentUserId);
+            if (currentUser == null) return NotFound();
+            // Get the new FCM token
+            currentUser.FirebaseCloudMessagingRegistrationToken = model.FcmToken;
+
+            // Save
+            await manager.UpdateAsync(currentUser);
+            var ctx = userStore.Context;
+            await ctx.SaveChangesAsync();
+
             return Ok();
         }
 

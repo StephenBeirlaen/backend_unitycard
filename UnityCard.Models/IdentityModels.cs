@@ -30,6 +30,8 @@ namespace UnityCard.Models
 
         [Required]
         public bool DisableNotifications { get; set; }
+
+        public string FirebaseCloudMessagingRegistrationToken { get; set; }
     }
 
     /*public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

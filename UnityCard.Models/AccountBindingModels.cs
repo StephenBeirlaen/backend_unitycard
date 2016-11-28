@@ -98,4 +98,12 @@ namespace UnityCard.Models
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
+
+    public class ChangeFcmTokenBindingModel
+    {
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Firebase Cloud Messaging Device Token")]
+        public string FcmToken { get; set; }
+    }
 }

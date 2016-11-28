@@ -16,10 +16,12 @@ namespace UnityCard.API.Controllers
     public class OfferController : ApiController
     {
         private IOfferRepository repoOffers;
+        private IRetailerRepository repoRetailers;
 
-        public OfferController(IOfferRepository repoOffers)
+        public OfferController(IOfferRepository repoOffers, IRetailerRepository repoRetailers)
         {
             this.repoOffers = repoOffers;
+            this.repoRetailers = repoRetailers;
         }
 
         /// <summary>
@@ -91,15 +93,24 @@ namespace UnityCard.API.Controllers
         [Authorize(Roles = ApplicationRoles.RETAILER)]
         public async Task<HttpResponseMessage> PushAdvertisementNotification(int retailerId, PushAdvertisementNotificationBody body)
         {
-            if (body == null)
+            if (body != null)
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
+                Retailer retailer = await repoRetailers.GetByID(retailerId);
+
+                if (retailer != null)
+                {
+                    AdvertisementNotification advertisementNotification = new AdvertisementNotification(retailerId, body.Title);
+                    GcmHelper.SendNotification(
+                        retailerId,
+                        retailer.Name,
+                        body.Title);
+
+                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+                    return response;
+                }
             }
 
-            // todo GCM (uitbreiding voor later)
-
-            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
-            return response;
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
     }
 }
