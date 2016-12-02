@@ -299,6 +299,10 @@
     <Compile Include="Migrations\201611281506110_UnityCard2.Designer.cs">
       <DependentUpon>201611281506110_UnityCard2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612021152368_UnityCard3.cs" />
+    <Compile Include="Migrations\201612021152368_UnityCard3.Designer.cs">
+      <DependentUpon>201612021152368_UnityCard3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationRefreshTokenProvider.cs" />
@@ -381,6 +385,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611281506110_UnityCard2.resx">
       <DependentUpon>201611281506110_UnityCard2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612021152368_UnityCard3.resx">
+      <DependentUpon>201612021152368_UnityCard3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

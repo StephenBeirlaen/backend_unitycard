@@ -129,10 +129,10 @@ namespace UnityCard.API.Migrations
             // RetailerLocations
             var retailerLocations = new List<RetailerLocation>
             {
-                new RetailerLocation(retailers[1].Id, "Intermarché Waregem", 50.888373, 3.442301, "Hippodroomstraat", "45", 8790, "Waregem", "België"),
-                new RetailerLocation(retailers[0].Id, "Carrefour Sint-Eloois-Vijve", 50.898427, 3.401234, "Gentseweg", "524", 8793, "Sint-Eloois-Vijve", "België"),
-                new RetailerLocation(retailers[0].Id, "Carrefour Express Kortrijk", 50.828343, 3.264955, "Leiestraat", "12", 8500, "Kortrijk", "België"),
-                new RetailerLocation(retailers[3].Id, "Clovis", 50.8270158, 3.2717236, "Sint-Jansstraat", "15", 8500, "Kortrijk", "België")
+                new RetailerLocation(retailers[1].Id, "Intermarché Waregem", "Hippodroomstraat", "45", 8790, "Waregem", "België"),
+                new RetailerLocation(retailers[0].Id, "Carrefour Sint-Eloois-Vijve", "Gentseweg", "524", 8793, "Sint-Eloois-Vijve", "België"),
+                new RetailerLocation(retailers[0].Id, "Carrefour Express Kortrijk", "Leiestraat", "12", 8500, "Kortrijk", "België"),
+                new RetailerLocation(retailers[3].Id, "Clovis", "Sint-Jansstraat", "15", 8500, "Kortrijk", "België")
             };
             retailerLocations.ForEach(t => context.RetailerLocations.AddOrUpdate<RetailerLocation>(o => o.Name, t));
             context.SaveChanges();

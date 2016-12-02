@@ -22,12 +22,6 @@ namespace UnityCard.Models
         public string Name { get; set; }
 
         [Required]
-        public double Latitude { get; set; }
-
-        [Required]
-        public double Longitude { get; set; }
-
-        [Required]
         public string Street { get; set; }
 
         [Required]
@@ -49,12 +43,10 @@ namespace UnityCard.Models
         {
         }
 
-        public RetailerLocation(int retailerId, string name, double latitude, double longitude, string street, string number, int zipCode, string city, string country)
+        public RetailerLocation(int retailerId, string name, string street, string number, int zipCode, string city, string country)
         {
             RetailerId = retailerId;
             Name = name;
-            Latitude = latitude;
-            Longitude = longitude;
             Street = street;
             Number = number;
             ZipCode = zipCode;

@@ -137,8 +137,6 @@ namespace UnityCard.API.Controllers
             RetailerLocation retailerLocation = new RetailerLocation(
                 retailerId,
                 body.Name,
-                body.Latitude,
-                body.Longitude,
                 body.Street,
                 body.Number,
                 body.ZipCode,
