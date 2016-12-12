@@ -72,6 +72,18 @@ namespace UnityCard.Models
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required]
+        public string Provider { get; set; }
+
+        [Required]
+        public string ExternalAccessToken { get; set; }
+    }
+
+    public class ParsedExternalAccessToken
+    {
+        public string user_id { get; set; }
+        public string app_id { get; set; }
     }
 
     public class RemoveLoginBindingModel

@@ -87,7 +87,7 @@ namespace UnityCard.API.Providers
 
         public override Task ValidateClientRedirectUri(OAuthValidateClientRedirectUriContext context)
         {
-            if (context.ClientId == _publicClientId)
+            /*if (context.ClientId == _publicClientId)
             {
                 Uri expectedRootUri = new Uri(context.Request.Uri, "/");
 
@@ -95,7 +95,8 @@ namespace UnityCard.API.Providers
                 {
                     context.Validated();
                 }
-            }
+            }*/
+            context.Validated(); // is ok
 
             return Task.FromResult<object>(null);
         }

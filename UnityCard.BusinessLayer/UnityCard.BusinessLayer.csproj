@@ -59,6 +59,8 @@
   <ItemGroup>
     <Compile Include="Context\UnityCardDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ExternalAuthRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IExternalAuthRepository.cs" />
     <Compile Include="Repositories\Interfaces\ILoyaltyPointRepository.cs" />
     <Compile Include="Repositories\Interfaces\IOfferRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRetailerLocationRepository.cs" />

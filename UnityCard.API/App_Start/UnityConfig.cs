@@ -18,7 +18,7 @@ namespace UnityCard.API
 
             // e.g. container.RegisterType<ITestService, TestService>();
 
-            container.RegisterType<AccountController>(new InjectionConstructor(new ResolvedParameter<ILoyaltyCardRepository>()));
+            container.RegisterType<AccountController>(new InjectionConstructor(new ResolvedParameter<ILoyaltyCardRepository>(), new ResolvedParameter<IExternalAuthRepository>()));
 
             container.RegisterType<ILoyaltyCardRepository, LoyaltyCardRepository>();
             container.RegisterType<ILoyaltyPointRepository, LoyaltyPointRepository>();
@@ -26,6 +26,7 @@ namespace UnityCard.API
             container.RegisterType<IRetailerCategoryRepository, RetailerCategoryRepository>();
             container.RegisterType<IRetailerLocationRepository, RetailerLocationRepository>();
             container.RegisterType<IRetailerRepository, RetailerRepository>();
+            container.RegisterType<IExternalAuthRepository, ExternalAuthRepository>();
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }

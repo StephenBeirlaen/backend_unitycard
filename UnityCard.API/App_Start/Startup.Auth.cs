@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.Facebook;
 using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.Infrastructure;
 using Microsoft.Owin.Security.OAuth;
@@ -18,6 +19,8 @@ namespace UnityCard.API
     public partial class Startup
     {
         public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
+        public static GoogleOAuth2AuthenticationOptions googleAuthOptions { get; private set; }
+        public static FacebookAuthenticationOptions facebookAuthOptions { get; private set; }
 
         public static string PublicClientId { get; private set; }
 
@@ -34,7 +37,7 @@ namespace UnityCard.API
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Configure the application for OAuth based flow
-            PublicClientId = "self";
+            PublicClientId = "nativeApp";
             OAuthOptions = new OAuthAuthorizationServerOptions
             {
                 TokenEndpointPath = new PathString("/Token"),
@@ -59,15 +62,21 @@ namespace UnityCard.API
             //    consumerKey: "",
             //    consumerSecret: "");
 
-            app.UseFacebookAuthentication(
-                appId: "339748679723003",
-                appSecret: "f4ec33187e6a07d38a5d2b30d3b19fae");
+            facebookAuthOptions = new FacebookAuthenticationOptions()
+            {
+                AppId = "339748679723003",
+                AppSecret = "f4ec33187e6a07d38a5d2b30d3b19fae",
+                Provider = new FacebookAuthProvider()
+            };
+            app.UseFacebookAuthentication(facebookAuthOptions);
 
-            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            googleAuthOptions = new GoogleOAuth2AuthenticationOptions()
             {
                 ClientId = "190077193197-d64if6qkkqdca45q1o61ehfr634mqo41.apps.googleusercontent.com",
-                ClientSecret = "51vZdm7NvjMriFCyMN0VAe5Z"
-            });
+                ClientSecret = "51vZdm7NvjMriFCyMN0VAe5Z",
+                Provider = new GoogleAuthProvider()
+            };
+            app.UseGoogleAuthentication(googleAuthOptions);
         }
     }
 }
