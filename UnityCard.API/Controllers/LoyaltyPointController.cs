@@ -40,6 +40,20 @@ namespace UnityCard.API.Controllers
         /// Award an amount of loyalty points to the specified user
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
+        [Route("{userId}/{retailerId}")]
+        [Authorize(Roles = ApplicationRoles.CUSTOMER)]
+        public async Task<LoyaltyPoint> GetLoyaltyPoint(string userId, int retailerId)
+        {
+            LoyaltyPoint loyaltyPoints = await repoLoyaltyPoints.GetLoyaltyPoint(userId, retailerId);
+
+            return loyaltyPoints;
+        }
+
+        /// <summary>
+        /// Award an amount of loyalty points to the specified user
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [Route("{userId}/{retailerId}")]
         [Authorize(Roles = ApplicationRoles.RETAILER)]

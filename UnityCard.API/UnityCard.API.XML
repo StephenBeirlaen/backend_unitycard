@@ -553,6 +553,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:UnityCard.API.Controllers.LoyaltyPointController.GetLoyaltyPoint(System.String,System.Int32)">
+            <summary>
+            Award an amount of loyalty points to the specified user
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:UnityCard.API.Controllers.LoyaltyPointController.AwardLoyaltyPoints(System.String,System.Int32,UnityCard.Models.PostModels.AwardLoyaltyPointsBody)">
             <summary>
             Award an amount of loyalty points to the specified user
