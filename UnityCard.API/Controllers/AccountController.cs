@@ -426,34 +426,44 @@ namespace UnityCard.API.Controllers
             return parsedToken;
         }
 
-        private JObject GenerateLocalAccessTokenResponse(string userName)
+        private JObject GenerateLocalAccessTokenResponse(string userName, string userId)
         {
-
-            var tokenExpiration = TimeSpan.FromDays(1);
+            var tokenExpiration = Startup.OAuthOptions.AccessTokenExpireTimeSpan;
+            var refreshTokenExpiration = TimeSpan.FromDays(Startup.RefreshTokenExpirationDays);
 
             ClaimsIdentity identity = new ClaimsIdentity(OAuthDefaults.AuthenticationType);
 
             identity.AddClaim(new Claim(ClaimTypes.Name, userName));
-            identity.AddClaim(new Claim("role", "user"));
+            identity.AddClaim(new Claim(ClaimTypes.Role, ApplicationRoles.CUSTOMER));
 
-            var props = new AuthenticationProperties()
+            var properties = new AuthenticationProperties()
             {
                 IssuedUtc = DateTime.UtcNow,
                 ExpiresUtc = DateTime.UtcNow.Add(tokenExpiration),
             };
+            var ticket = new AuthenticationTicket(identity, properties);
 
-            var ticket = new AuthenticationTicket(identity, props);
+            var refreshTokenProperties = new AuthenticationProperties()
+            {
+                IssuedUtc = DateTime.UtcNow,
+                ExpiresUtc = DateTime.UtcNow.Add(refreshTokenExpiration),
+            };
+            var refreshTokenTicket = new AuthenticationTicket(identity, refreshTokenProperties);
 
             var accessToken = Startup.OAuthOptions.AccessTokenFormat.Protect(ticket);
+            var refreshToken = Startup.OAuthOptions.RefreshTokenFormat.Protect(refreshTokenTicket);
 
             JObject tokenResponse = new JObject(
-                                        new JProperty("userName", userName),
-                                        new JProperty("access_token", accessToken),
-                                        new JProperty("token_type", "bearer"),
-                                        new JProperty("expires_in", tokenExpiration.TotalSeconds.ToString()),
-                                        new JProperty(".issued", ticket.Properties.IssuedUtc.ToString()),
-                                        new JProperty(".expires", ticket.Properties.ExpiresUtc.ToString())
-        );
+                new JProperty("access_token", accessToken),
+                new JProperty("token_type", "bearer"),
+                new JProperty("expires_in", tokenExpiration.TotalSeconds),
+                new JProperty("refresh_token", refreshToken),
+                new JProperty("userName", userName),
+                new JProperty(".issued", ticket.Properties.IssuedUtc.ToString()),
+                new JProperty(".expires", ticket.Properties.ExpiresUtc.ToString()),
+                new JProperty("user_id", userId),
+                new JProperty("user_role", ApplicationRoles.CUSTOMER)
+            );
 
             return tokenResponse;
         }
@@ -552,7 +562,7 @@ namespace UnityCard.API.Controllers
                 return BadRequest("Invalid Provider or External Access Token");
             }
 
-            IdentityUser user = await repoExternalAuth.FindAsync(new UserLoginInfo(model.Provider, verifiedAccessToken.user_id));
+            ApplicationUser user = await repoExternalAuth.FindAsync(new UserLoginInfo(model.Provider, verifiedAccessToken.user_id));
 
             bool hasRegistered = user != null;
 
@@ -561,11 +571,22 @@ namespace UnityCard.API.Controllers
                 return BadRequest("External user is already registered");
             }
 
-            user = new IdentityUser() { UserName = model.Email };
+            user = new ApplicationUser()
+            {
+                LastName = "todooooooooo",
+                FirstName = "todoooooo",
+                Email = model.Email,
+                UserName = model.Email,
+                Language = "to-DO",
+                DisableNotifications = false
+            };
 
             IdentityResult result = await repoExternalAuth.CreateAsync(user);
-            if (!result.Succeeded)
+            if (result.Succeeded)
             {
+                await UserManager.AddToRoleAsync(user.Id, ApplicationRoles.CUSTOMER);
+            }
+            else {
                 return GetErrorResult(result);
             }
 
@@ -582,7 +603,7 @@ namespace UnityCard.API.Controllers
             }
 
             //generate access token response
-            var accessTokenResponse = GenerateLocalAccessTokenResponse(model.Email);
+            var accessTokenResponse = GenerateLocalAccessTokenResponse(model.Email, user.Id);
 
             return Ok(accessTokenResponse);
         }
@@ -614,7 +635,7 @@ namespace UnityCard.API.Controllers
             }
 
             //generate access token response
-            var accessTokenResponse = GenerateLocalAccessTokenResponse(user.UserName);
+            var accessTokenResponse = GenerateLocalAccessTokenResponse(user.UserName, user.Id);
 
             return Ok(accessTokenResponse);
 
