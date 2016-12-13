@@ -598,6 +598,10 @@ namespace UnityCard.API.Controllers
             if (result.Succeeded)
             {
                 await UserManager.AddToRoleAsync(user.Id, ApplicationRoles.CUSTOMER);
+
+                LoyaltyCard loyaltyCard = new LoyaltyCard(user.Id);
+                repoLoyaltyCards.Insert(loyaltyCard);
+                await repoLoyaltyCards.SaveChanges();
             }
             else {
                 return GetErrorResult(result);
