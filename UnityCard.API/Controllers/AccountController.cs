@@ -586,11 +586,11 @@ namespace UnityCard.API.Controllers
 
             user = new ApplicationUser()
             {
-                LastName = "todooooooooo",
-                FirstName = "todoooooo",
+                LastName = model.LastName,
+                FirstName = model.FirstName,
                 Email = model.Email,
                 UserName = model.Email,
-                Language = "to-DO",
+                Language = model.Language,
                 DisableNotifications = false
             };
 
