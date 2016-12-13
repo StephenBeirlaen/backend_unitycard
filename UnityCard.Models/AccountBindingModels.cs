@@ -78,6 +78,12 @@ namespace UnityCard.Models
 
         [Required]
         public string ExternalAccessToken { get; set; }
+
+        [Required]
+        public string FirstName { get; set; }
+
+        [Required]
+        public string LastName { get; set; }
     }
 
     public class ParsedExternalAccessToken
