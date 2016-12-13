@@ -69,6 +69,8 @@ namespace UnityCard.API
                 AppSecret = "f4ec33187e6a07d38a5d2b30d3b19fae",
                 Provider = new FacebookAuthProvider()
             };
+            facebookAuthOptions.Scope.Add("email");
+            facebookAuthOptions.Scope.Add("public_profile");
             app.UseFacebookAuthentication(facebookAuthOptions);
 
             googleAuthOptions = new GoogleOAuth2AuthenticationOptions()

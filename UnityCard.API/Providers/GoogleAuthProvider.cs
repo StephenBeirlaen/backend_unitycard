@@ -18,6 +18,9 @@ namespace UnityCard.API.Providers
         public Task Authenticated(GoogleOAuth2AuthenticatedContext context)
         {
             context.Identity.AddClaim(new Claim("ExternalAccessToken", context.AccessToken));
+            context.Identity.AddClaim(new Claim("Email", context.Email));
+            context.Identity.AddClaim(new Claim("FirstName", context.GivenName));
+            context.Identity.AddClaim(new Claim("LastName", context.FamilyName));
             return Task.FromResult<object>(null);
         }
 

@@ -13,6 +13,10 @@ namespace UnityCard.API.Providers
         public override Task Authenticated(FacebookAuthenticatedContext context)
         {
             context.Identity.AddClaim(new Claim("ExternalAccessToken", context.AccessToken));
+            //context.Identity.AddClaim(new Claim("Email", context.Email));
+            //context.Identity.AddClaim(new Claim("FirstName", context.Name));
+            //context.Identity.AddClaim(new Claim("LastName", ""));
+
             return Task.FromResult<object>(null);
         }
     }

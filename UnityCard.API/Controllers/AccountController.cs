@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
+using Facebook;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -274,6 +275,15 @@ namespace UnityCard.API.Controllers
                 return new ChallengeResult(provider, this);
             }
 
+            if (provider == "Facebook")
+            {
+                var fb = new FacebookClient(externalLogin.ExternalAccessToken);
+                dynamic myInfo = fb.Get("/me?fields=email,first_name,last_name,gender"); // specify the email field
+                externalLogin.Email = myInfo["email"];
+                externalLogin.FirstName = myInfo["first_name"];
+                externalLogin.LastName = myInfo["last_name"];
+            }
+
             ApplicationUser user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
                 externalLogin.ProviderKey));
 
@@ -300,12 +310,15 @@ namespace UnityCard.API.Controllers
 
             return Ok();*/
 
-            redirectUri = string.Format("{0}?external_access_token={1}&provider={2}&haslocalaccount={3}&external_user_name={4}",
+            redirectUri = string.Format("{0}?external_access_token={1}&provider={2}&haslocalaccount={3}&external_user_name={4}&email={5}&firstname={6}&lastname={7}",
                                             redirectUri,
                                             externalLogin.ExternalAccessToken,
                                             externalLogin.LoginProvider,
                                             hasRegistered.ToString(),
-                                            externalLogin.UserName);
+                                            externalLogin.UserName,
+                                            externalLogin.Email,
+                                            externalLogin.FirstName,
+                                            externalLogin.LastName);
 
             return Redirect(redirectUri);
         }
@@ -727,6 +740,9 @@ namespace UnityCard.API.Controllers
             public string ProviderKey { get; set; }
             public string UserName { get; set; }
             public string ExternalAccessToken { get; set; }
+            public string Email { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
 
             public IList<Claim> GetClaims()
             {
@@ -766,7 +782,10 @@ namespace UnityCard.API.Controllers
                     LoginProvider = providerKeyClaim.Issuer,
                     ProviderKey = providerKeyClaim.Value,
                     UserName = identity.FindFirstValue(ClaimTypes.Name),
-                    ExternalAccessToken = identity.FindFirstValue("ExternalAccessToken")
+                    ExternalAccessToken = identity.FindFirstValue("ExternalAccessToken"),
+                    Email = identity.FindFirstValue("Email"),
+                    FirstName = identity.FindFirstValue("FirstName"),
+                    LastName = identity.FindFirstValue("LastName")
                 };
             }
         }
