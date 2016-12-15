@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace UnityCard.API.Helpers
 {
-    public class GcmHelper
+    public class FcmHelper
     {
         public static String SendNotification(String[] recipients, int retailerId, string retailerName, string message)
         {
@@ -20,7 +20,7 @@ namespace UnityCard.API.Helpers
             const String GoogleFcmURL = "https://fcm.googleapis.com/fcm/send";
 
             WebRequest fcmRequest;
-            fcmRequest = WebRequest.Create("https://android.googleapis.com/gcm/send");
+            fcmRequest = WebRequest.Create(GoogleFcmURL);
             fcmRequest.Method = "post";
             fcmRequest.ContentType = "application/json";
             fcmRequest.Headers.Add(String.Format("Authorization: key={0}", GoogleFcmApiKey));
