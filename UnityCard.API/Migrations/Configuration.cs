@@ -45,7 +45,7 @@ namespace UnityCard.API.Migrations
             }
 
             // ApplicationUsers aanmaken
-            ApplicationUser customer1 = context.Users.FirstOrDefault(u => u.Email.Equals("stephen.beirlaen@student.howest.be"));
+            ApplicationUser customer1 = context.Users.FirstOrDefault(u => u.Email.Equals("customer1@unitycard.com"));
             if (customer1 == null)
             {
                 var store = new UserStore<ApplicationUser>(context);
@@ -53,10 +53,10 @@ namespace UnityCard.API.Migrations
 
                 customer1 = new ApplicationUser()
                 {
-                    LastName = "Beirlaen",
-                    FirstName = "Stephen",
-                    Email = "stephen.beirlaen@student.howest.be",
-                    UserName = "stephen.beirlaen@student.howest.be",
+                    LastName = "Demo 1",
+                    FirstName = "Customer",
+                    Email = "customer1@unitycard.com",
+                    UserName = "customer1@unitycard.com",
                     Language = "nl-BE",
                     DisableNotifications = false
                 };
@@ -64,7 +64,7 @@ namespace UnityCard.API.Migrations
                 manager.Create(customer1, "-Password1");
                 manager.AddToRole(customer1.Id, ApplicationRoles.CUSTOMER);
             }
-            ApplicationUser retailer1 = context.Users.FirstOrDefault(u => u.Email.Equals("lorenz.vercoutere@student.howest.be"));
+            ApplicationUser retailer1 = context.Users.FirstOrDefault(u => u.Email.Equals("retailer1@unitycard.com"));
             if (retailer1 == null)
             {
                 var store = new UserStore<ApplicationUser>(context);
@@ -72,10 +72,10 @@ namespace UnityCard.API.Migrations
 
                 retailer1 = new ApplicationUser()
                 {
-                    LastName = "Vercoutere",
-                    FirstName = "Lorenz",
-                    Email = "lorenz.vercoutere@student.howest.be",
-                    UserName = "lorenz.vercoutere@student.howest.be",
+                    LastName = "Demo 1",
+                    FirstName = "Retailer",
+                    Email = "retailer1@unitycard.com",
+                    UserName = "retailer1@unitycard.com",
                     Language = "nl-BE",
                     DisableNotifications = false
                 };

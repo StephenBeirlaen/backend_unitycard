@@ -102,7 +102,7 @@ namespace UnityCard.API.Controllers
                     String[] FcmTokens = (await repoRetailers.GetAllUserFcmTokensAttachedToRetailer(retailerId)).ToArray();
 
                     AdvertisementNotification advertisementNotification = new AdvertisementNotification(retailerId, body.Title);
-                    GcmHelper.SendNotification(
+                    FcmHelper.SendNotification(
                         FcmTokens,
                         retailerId,
                         retailer.Name,

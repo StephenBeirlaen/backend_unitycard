@@ -293,7 +293,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ApplicationRoles.cs" />
-    <Compile Include="Helpers\GcmHelper.cs" />
+    <Compile Include="Helpers\FcmHelper.cs" />
     <Compile Include="Helpers\TimestampHelper.cs" />
     <Compile Include="Migrations\201610271330180_UnityCard.cs" />
     <Compile Include="Migrations\201610271330180_UnityCard.Designer.cs">
