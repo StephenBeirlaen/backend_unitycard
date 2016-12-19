@@ -10,6 +10,7 @@ using UnityCard.BusinessLayer.Repositories;
 using UnityCard.BusinessLayer.Repositories.Interfaces;
 using UnityCard.Models;
 using UnityCard.Models.PostModels;
+using UnityCard.Models.ViewModels;
 
 namespace UnityCard.API.Controllers
 {
@@ -17,10 +18,12 @@ namespace UnityCard.API.Controllers
     public class LoyaltyCardController : ApiController
     {
         private ILoyaltyCardRepository repoLoyaltyCards;
+        private ILoyaltyPointRepository repoLoyaltyPoints;
 
-        public LoyaltyCardController(ILoyaltyCardRepository repoLoyaltyCards)
+        public LoyaltyCardController(ILoyaltyCardRepository repoLoyaltyCards, ILoyaltyPointRepository repoLoyaltyPoints)
         {
             this.repoLoyaltyCards = repoLoyaltyCards;
+            this.repoLoyaltyPoints = repoLoyaltyPoints;
         }
 
         /// <summary>
@@ -44,11 +47,21 @@ namespace UnityCard.API.Controllers
         [HttpGet]
         [Route("{userId}/retailers")]
         [Authorize(Roles = ApplicationRoles.CUSTOMER)]
-        public async Task<List<Retailer>> GetLoyaltyCardRetailers(string userId, [FromUri] long lastUpdatedTimestamp)
+        public async Task<List<RetailerLoyaltyPointVM>> GetLoyaltyCardRetailers(string userId, [FromUri] long lastUpdatedTimestamp)
         {
-            List<Retailer> retailers = await repoLoyaltyCards.GetLoyaltyCardRetailers(userId, TimestampHelper.UnixTimeStampToDateTime(lastUpdatedTimestamp));
+            List<RetailerLoyaltyPointVM> retailerLoyaltyPointVMs = new List<RetailerLoyaltyPointVM>();
 
-            return retailers;
+            List<Retailer> retailers = await repoLoyaltyCards.GetLoyaltyCardRetailers(userId, TimestampHelper.UnixTimeStampToDateTime(lastUpdatedTimestamp));
+            foreach (Retailer retailer in retailers)
+            {
+                RetailerLoyaltyPointVM vm = new RetailerLoyaltyPointVM();
+                vm.Retailer = retailer;
+                vm.LoyaltyPoints = (await repoLoyaltyPoints.GetLoyaltyPoint(userId, retailer.Id)).Points;
+
+                retailerLoyaltyPointVMs.Add(vm);
+            }
+
+            return retailerLoyaltyPointVMs;
         }
 
         /// <summary>
