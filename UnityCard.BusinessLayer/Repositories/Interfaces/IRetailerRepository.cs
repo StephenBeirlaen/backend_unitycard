@@ -9,5 +9,6 @@ namespace UnityCard.BusinessLayer.Repositories.Interfaces
     {
         Task<List<Retailer>> GetAllRetailers(DateTime lastUpdatedTimestamp);
         Task<List<String>> GetAllUserFcmTokensAttachedToRetailer(int retailerId);
+        Task RenewRetailerUpdatedTimestamp(int retailerId);
     }
 }

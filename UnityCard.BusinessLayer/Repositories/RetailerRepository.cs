@@ -32,5 +32,15 @@ namespace UnityCard.BusinessLayer.Repositories
                          select au.FirebaseCloudMessagingRegistrationToken);
             return await query.ToListAsync();
         }
+
+        public async Task RenewRetailerUpdatedTimestamp(int retailerId)
+        {
+            Retailer retailer = await GetByID(retailerId);
+            if (retailer != null)
+            {
+                retailer.UpdatedTimestamp = DateTime.UtcNow;
+                await SaveChanges();
+            }
+        }
     }
 }

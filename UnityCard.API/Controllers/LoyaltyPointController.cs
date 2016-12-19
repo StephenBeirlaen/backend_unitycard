@@ -16,10 +16,12 @@ namespace UnityCard.API.Controllers
     public class LoyaltyPointController : ApiController
     {
         private ILoyaltyPointRepository repoLoyaltyPoints;
+        private IRetailerRepository repoRetailers;
 
-        public LoyaltyPointController(ILoyaltyPointRepository repoLoyaltyPoints)
+        public LoyaltyPointController(ILoyaltyPointRepository repoLoyaltyPoints, IRetailerRepository repoRetailers)
         {
             this.repoLoyaltyPoints = repoLoyaltyPoints;
+            this.repoRetailers = repoRetailers;
         }
 
         /// <summary>
@@ -70,6 +72,8 @@ namespace UnityCard.API.Controllers
 
             if (loyaltyPoint != null)
             {
+                await repoRetailers.RenewRetailerUpdatedTimestamp(retailerId);
+
                 response = Request.CreateResponse(HttpStatusCode.OK);
             }
             else
@@ -100,6 +104,8 @@ namespace UnityCard.API.Controllers
 
             if (loyaltyPoint != null)
             {
+                await repoRetailers.RenewRetailerUpdatedTimestamp(retailerId);
+
                 response = Request.CreateResponse(HttpStatusCode.OK);
             }
             else

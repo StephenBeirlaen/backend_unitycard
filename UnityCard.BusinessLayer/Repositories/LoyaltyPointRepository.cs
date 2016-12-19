@@ -43,6 +43,7 @@ namespace UnityCard.BusinessLayer.Repositories
             if (loyaltyPoint != null)
             {
                 loyaltyPoint.Points += loyaltyPointsIncrementAmount; // SET LoyaltyPoints.Points = LoyaltyPoints.Points + x
+                loyaltyPoint.UpdatedTimestamp = DateTime.UtcNow;
 
                 try
                 {
@@ -66,6 +67,7 @@ namespace UnityCard.BusinessLayer.Repositories
             if (loyaltyPoint != null)
             {
                 loyaltyPoint.Points = loyaltyPointsCount; // SET LoyaltyPoints.Points = x
+                loyaltyPoint.UpdatedTimestamp = DateTime.UtcNow;
 
                 try
                 {
