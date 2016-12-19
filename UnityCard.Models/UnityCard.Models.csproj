@@ -103,6 +103,7 @@
     <Compile Include="Retailer.cs" />
     <Compile Include="RetailerCategory.cs" />
     <Compile Include="RetailerLocation.cs" />
+    <Compile Include="ViewModels\RetailerLoyaltyPointVM.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
