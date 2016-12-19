@@ -78,19 +78,28 @@ namespace UnityCard.API.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
 
-            LoyaltyCard loyaltyCard = await repoLoyaltyCards.GetLoyaltyCard(userId);
-
-            LoyaltyPoint loyaltyPoint = await repoLoyaltyCards.AddLoyaltyCardRetailer(loyaltyCard, body.RetailerId);
-
             HttpResponseMessage response;
 
-            if (loyaltyPoint != null)
-            {
-                response = Request.CreateResponse(HttpStatusCode.OK);
+            List<Retailer> existingAddedRetailers = await repoLoyaltyCards.GetLoyaltyCardRetailers(userId, new DateTime(0));
+
+            if (existingAddedRetailers.Any(r => r.Id == body.RetailerId)) // werd de retailer al eens toegevoegd?
+            { // de retailer werd al eens toegevoegd
+                response = Request.CreateResponse(HttpStatusCode.OK); // geen error geven, is geen probleem
             }
             else
             {
-                response = Request.CreateResponse(HttpStatusCode.BadRequest);
+                LoyaltyCard loyaltyCard = await repoLoyaltyCards.GetLoyaltyCard(userId);
+
+                LoyaltyPoint loyaltyPoint = await repoLoyaltyCards.AddLoyaltyCardRetailer(loyaltyCard, body.RetailerId);
+
+                if (loyaltyPoint != null)
+                {
+                    response = Request.CreateResponse(HttpStatusCode.OK);
+                }
+                else
+                {
+                    response = Request.CreateResponse(HttpStatusCode.BadRequest);
+                }
             }
             
             return response;
