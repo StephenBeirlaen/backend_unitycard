@@ -19,11 +19,13 @@ namespace UnityCard.API.Controllers
     {
         private ILoyaltyCardRepository repoLoyaltyCards;
         private ILoyaltyPointRepository repoLoyaltyPoints;
+        private IRetailerRepository repoRetailers;
 
-        public LoyaltyCardController(ILoyaltyCardRepository repoLoyaltyCards, ILoyaltyPointRepository repoLoyaltyPoints)
+        public LoyaltyCardController(ILoyaltyCardRepository repoLoyaltyCards, ILoyaltyPointRepository repoLoyaltyPoints, IRetailerRepository repoRetailers)
         {
             this.repoLoyaltyCards = repoLoyaltyCards;
             this.repoLoyaltyPoints = repoLoyaltyPoints;
+            this.repoRetailers = repoRetailers;
         }
 
         /// <summary>
@@ -94,6 +96,8 @@ namespace UnityCard.API.Controllers
 
                 if (loyaltyPoint != null)
                 {
+                    await repoRetailers.RenewRetailerUpdatedTimestamp(body.RetailerId);
+
                     response = Request.CreateResponse(HttpStatusCode.OK);
                 }
                 else
