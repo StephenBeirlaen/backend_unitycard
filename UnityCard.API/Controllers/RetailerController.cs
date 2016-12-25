@@ -33,7 +33,7 @@ namespace UnityCard.API.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("")]
-        [Authorize(Roles = ApplicationRoles.CUSTOMER)]
+        [Authorize]
         public async Task<List<Retailer>> GetAllRetailers([FromUri] long lastUpdatedTimestamp)
         {
             List<Retailer> retailers = (await repoRetailers.GetAllRetailers(TimestampHelper.UnixTimeStampToDateTime(lastUpdatedTimestamp))).ToList();
