@@ -66,6 +66,18 @@ namespace UnityCard.API.Controllers
             return retailerLoyaltyPointVMs;
         }
 
+        [HttpGet]
+        [Route("{loyaltyCardId}")]
+        [Authorize(Roles = ApplicationRoles.RETAILER)]
+        public async Task<string> GetUserIdByLoyaltyCardId(int loyaltyCardId)
+        {
+            string userId = "";
+
+            userId = await repoLoyaltyCards.GetUserIdByLoyaltyCardId(loyaltyCardId);
+
+            return userId;
+        }
+
         /// <summary>
         /// Add a new retailer to the specified user's loyalty card
         /// </summary>

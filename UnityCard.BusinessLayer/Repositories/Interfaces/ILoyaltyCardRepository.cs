@@ -10,6 +10,7 @@ namespace UnityCard.BusinessLayer.Repositories.Interfaces
         Task<LoyaltyCard> GetLoyaltyCard(string userId);
         Task<LoyaltyCard> GetLoyaltyCard(string userId, DateTime lastUpdatedTimestamp);
         Task<List<Retailer>> GetLoyaltyCardRetailers(string userId, DateTime lastUpdatedTimestamp);
+        Task<string> GetUserIdByLoyaltyCardId(int loyaltyCardId);
         Task<LoyaltyPoint> AddLoyaltyCardRetailer(LoyaltyCard loyaltyCard, int retailerId);
     }
 }

@@ -28,6 +28,14 @@ namespace UnityCard.BusinessLayer.Repositories
             return await query.SingleOrDefaultAsync();
         }
 
+        public async Task<string> GetUserIdByLoyaltyCardId(int loyaltyCardId)
+        {
+            var query = (from lc in context.LoyaltyCards
+                         where lc.Id == loyaltyCardId
+                         select lc.UserId);
+            return await query.SingleOrDefaultAsync();
+        }
+
         public async Task<List<Retailer>> GetLoyaltyCardRetailers(string userId, DateTime lastUpdatedTimestamp)
         {
             var query =
