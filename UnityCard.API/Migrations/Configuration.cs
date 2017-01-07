@@ -99,7 +99,10 @@ namespace UnityCard.API.Migrations
             {
                 new RetailerCategory("Supermarkt"),
                 new RetailerCategory("Pastabar"),
-                new RetailerCategory("Kleerwinkel")
+                new RetailerCategory("Kleerwinkel"),
+                new RetailerCategory("Doe-het-zelfzaak"),
+                new RetailerCategory("Hamburgerrestaurant"),
+                new RetailerCategory("Fastfoodketen")
             };
             //retailerCategories.ForEach(t => context.RetailerCategories.Add(t));                                
             retailerCategories.ForEach(t => context.RetailerCategories.AddOrUpdate<RetailerCategory>(o => o.Name, t));
@@ -108,10 +111,14 @@ namespace UnityCard.API.Migrations
             // Retailers
             var retailers = new List<Retailer>
             {
-                new Retailer(retailerCategories[0].Id, "Carrefour", "Lage prijzen, plezier inbegrepen", true, "http://hyper.carrefour.eu/sites/hyper.carrefour.eu/files/hyper-nl_0_0.png"),
+                new Retailer(retailerCategories[0].Id, "Carrefour", "Lage prijzen, plezier inbegrepen", true, "http://www.bloovi.be/frontend/files/blog/images/source/mobilosoft-maakt-mobiele-sites-van-carrefour.jpg"),
                 new Retailer(retailerCategories[0].Id, "Intermarché", "Tous unis contre la vie chère", true, "http://franchisingbelgium.be/wp-content/uploads/2016/02/Intermarch%C3%A9_Logo-1.png"),
-                new Retailer(retailerCategories[1].Id, "Pastaciutta", "Tagline", true, ""),
-                new Retailer(retailerCategories[2].Id, "Clovis", "Tagline", false, "http://clovis.be/wp-content/themes/clovis/img/logo-clovis-small.png")
+                new Retailer(retailerCategories[1].Id, "Pastaciutta", "Tagline", true, "https://scontent-amt2-1.xx.fbcdn.net/v/t1.0-9/557608_10150702296215969_2428331_n.jpg?oh=53e2f2b49a0977265d4fd58ab01604e0&oe=5914718C"),
+                new Retailer(retailerCategories[2].Id, "Clovis", "Tagline", false, "http://clovis.be/wp-content/themes/clovis/img/logo-clovis-small.png"),
+                new Retailer(retailerCategories[3].Id, "Brico", "Voor de makers", true, "https://lh3.googleusercontent.com/-ia1zDysHhng/V0K1iz-fz1I/AAAAAAAAAAk/r_9whdbEutwQLO4bAQI6ybCraOtbzN_hgCJkC/s408-k-no/"),
+                new Retailer(retailerCategories[0].Id, "Spar", "Altijd in je buurt!", true, "http://www.gondola.be/sites/default/files/news_aktualiteits_artikel/spar_help_portrait_yes-we-care.jpg"),
+                new Retailer(retailerCategories[4].Id, "Paul's Boutique", "Original, Delicious, Fresh, Rock&Roll", true, "http://www.paulsboutique.be/images/logover.png"),
+                new Retailer(retailerCategories[5].Id, "McDonalds's", "I'm lovin' it", true, "https://yt3.ggpht.com/-avTHbIvvjKY/AAAAAAAAAAI/AAAAAAAAAAA/GtO4B-SrWkA/s900-c-k-no-mo-rj-c0xffffff/photo.jpg")
             };
             retailers.ForEach(t => context.Retailers.AddOrUpdate<Retailer>(o => o.Name, t));
             context.SaveChanges();
@@ -132,7 +139,15 @@ namespace UnityCard.API.Migrations
                 new RetailerLocation(retailers[1].Id, "Intermarché Waregem", "Hippodroomstraat", "45", 8790, "Waregem", "België"),
                 new RetailerLocation(retailers[0].Id, "Carrefour Sint-Eloois-Vijve", "Gentseweg", "524", 8793, "Sint-Eloois-Vijve", "België"),
                 new RetailerLocation(retailers[0].Id, "Carrefour Express Kortrijk", "Leiestraat", "12", 8500, "Kortrijk", "België"),
-                new RetailerLocation(retailers[3].Id, "Clovis", "Sint-Jansstraat", "15", 8500, "Kortrijk", "België")
+                new RetailerLocation(retailers[3].Id, "Clovis", "Sint-Jansstraat", "15", 8500, "Kortrijk", "België"),
+                new RetailerLocation(retailers[4].Id, "Brico Waregem", "Wijmeriestraat", "13", 8790, "Waregem", "België"),
+                new RetailerLocation(retailers[4].Id, "Brico Plan-it Kortrijk", "Engelse Wandeling", "2", 8500, "Kortrijk", "België"),
+                new RetailerLocation(retailers[5].Id, "Spar Kortrijk", "Engelse Wandeling", "1", 8500, "Kortrijk", "België"),
+                new RetailerLocation(retailers[5].Id, "Spar Waregem Holstraat", "Holstraat", "78", 8790, "Waregem", "België"),
+                new RetailerLocation(retailers[5].Id, "Spar Waregem Servaeslaan", "Albert Servaeslaan", "48", 8790, "Waregem", "België"),
+                new RetailerLocation(retailers[6].Id, "Paul's Fresh Food Boutique", "Kleine Sint-Jansstraat", "15", 8500, "Kortrijk", "België"),
+                new RetailerLocation(retailers[6].Id, "Jill's Boutique", "Zandstraat", "19", 8500, "Kortrijk", "België"),
+                new RetailerLocation(retailers[7].Id, "McDonald's Kortrijk", "President Kennedylaan", "100", 8500, "Kortrijk", "België")
             };
             retailerLocations.ForEach(t => context.RetailerLocations.AddOrUpdate<RetailerLocation>(o => o.Name, t));
             context.SaveChanges();
